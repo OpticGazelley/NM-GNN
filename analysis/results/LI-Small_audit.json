@@ -1,0 +1,3733 @@
+{
+  "dataset": "LI-Small",
+  "file_bytes": 650422357,
+  "scope": "full CSV; diagnostic label-conditioned statistics, no model training",
+  "null_counts": {
+    "timestamp": 0,
+    "from_bank": 0,
+    "from_account": 0,
+    "to_bank": 0,
+    "to_account": 0,
+    "amount_received": 0,
+    "receiving_currency": 0,
+    "amount_paid": 0,
+    "payment_currency": 0,
+    "payment_format": 0,
+    "label": 0
+  },
+  "legacy_key_collision_groups": 0,
+  "basic": {
+    "rows": 6924049,
+    "positives": 3565,
+    "positive_rate": 0.0005148721506736881,
+    "accounts": 705907,
+    "banks": 41867,
+    "start": "2022/09/01 00:00",
+    "end": "2022/09/17 15:28",
+    "span_minutes": 23968,
+    "currencies": 15,
+    "payment_formats": 7,
+    "file_order_time_decreases": 3298340
+  },
+  "split_day_boundaries": [
+    6,
+    8
+  ],
+  "daily": [
+    {
+      "day": 0,
+      "split": "train",
+      "n": 1524807,
+      "positive": 310,
+      "positive_rate": 0.00020330441819849988
+    },
+    {
+      "day": 1,
+      "split": "train",
+      "n": 1027758,
+      "positive": 350,
+      "positive_rate": 0.00034054709377110174
+    },
+    {
+      "day": 2,
+      "split": "train",
+      "n": 283326,
+      "positive": 292,
+      "positive_rate": 0.0010306149100329657
+    },
+    {
+      "day": 3,
+      "split": "train",
+      "n": 282476,
+      "positive": 291,
+      "positive_rate": 0.0010301760149534827
+    },
+    {
+      "day": 4,
+      "split": "train",
+      "n": 657397,
+      "positive": 370,
+      "positive_rate": 0.0005628258114959454
+    },
+    {
+      "day": 5,
+      "split": "train",
+      "n": 657170,
+      "positive": 380,
+      "positive_rate": 0.0005782369858636274
+    },
+    {
+      "day": 6,
+      "split": "validation",
+      "n": 658504,
+      "positive": 368,
+      "positive_rate": 0.0005588424671680051
+    },
+    {
+      "day": 7,
+      "split": "validation",
+      "n": 657938,
+      "positive": 402,
+      "positive_rate": 0.0006109998206517939
+    },
+    {
+      "day": 8,
+      "split": "test",
+      "n": 891573,
+      "positive": 367,
+      "positive_rate": 0.000411632025644563
+    },
+    {
+      "day": 9,
+      "split": "test",
+      "n": 282877,
+      "positive": 301,
+      "positive_rate": 0.001064066714508426
+    },
+    {
+      "day": 10,
+      "split": "test",
+      "n": 77,
+      "positive": 47,
+      "positive_rate": 0.6103896103896104
+    },
+    {
+      "day": 11,
+      "split": "test",
+      "n": 48,
+      "positive": 27,
+      "positive_rate": 0.5625
+    },
+    {
+      "day": 12,
+      "split": "test",
+      "n": 48,
+      "positive": 29,
+      "positive_rate": 0.6041666666666666
+    },
+    {
+      "day": 13,
+      "split": "test",
+      "n": 31,
+      "positive": 18,
+      "positive_rate": 0.5806451612903226
+    },
+    {
+      "day": 14,
+      "split": "test",
+      "n": 9,
+      "positive": 6,
+      "positive_rate": 0.6666666666666666
+    },
+    {
+      "day": 15,
+      "split": "test",
+      "n": 7,
+      "positive": 5,
+      "positive_rate": 0.7142857142857143
+    },
+    {
+      "day": 16,
+      "split": "test",
+      "n": 3,
+      "positive": 2,
+      "positive_rate": 0.6666666666666666
+    }
+  ],
+  "splits": [
+    {
+      "split": "test",
+      "n": 1174673,
+      "positive": 802,
+      "positive_rate": 0.0006827431974685721
+    },
+    {
+      "split": "train",
+      "n": 4432934,
+      "positive": 1993,
+      "positive_rate": 0.0004495893690273756
+    },
+    {
+      "split": "validation",
+      "n": 1316442,
+      "positive": 770,
+      "positive_rate": 0.0005849099314667869
+    }
+  ],
+  "payment_format": [
+    {
+      "split": "test",
+      "payment_format": "ACH",
+      "n": 157359,
+      "positive": 635,
+      "positive_rate": 0.00403535863852719
+    },
+    {
+      "split": "test",
+      "payment_format": "Bitcoin",
+      "n": 51652,
+      "positive": 20,
+      "positive_rate": 0.0003872066909316193
+    },
+    {
+      "split": "test",
+      "payment_format": "Cash",
+      "n": 122569,
+      "positive": 16,
+      "positive_rate": 0.0001305387169675856
+    },
+    {
+      "split": "test",
+      "payment_format": "Cheque",
+      "n": 466175,
+      "positive": 86,
+      "positive_rate": 0.00018448007722421836
+    },
+    {
+      "split": "test",
+      "payment_format": "Credit Card",
+      "n": 336743,
+      "positive": 45,
+      "positive_rate": 0.00013363306735403557
+    },
+    {
+      "split": "test",
+      "payment_format": "Wire",
+      "n": 40175,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "split": "train",
+      "payment_format": "ACH",
+      "n": 482846,
+      "positive": 1422,
+      "positive_rate": 0.0029450383766252593
+    },
+    {
+      "split": "train",
+      "payment_format": "Bitcoin",
+      "n": 197345,
+      "positive": 71,
+      "positive_rate": 0.00035977602675517497
+    },
+    {
+      "split": "train",
+      "payment_format": "Cash",
+      "n": 395144,
+      "positive": 80,
+      "positive_rate": 0.00020245783815520417
+    },
+    {
+      "split": "train",
+      "payment_format": "Cheque",
+      "n": 1504253,
+      "positive": 261,
+      "positive_rate": 0.00017350804685116133
+    },
+    {
+      "split": "train",
+      "payment_format": "Credit Card",
+      "n": 1063304,
+      "positive": 159,
+      "positive_rate": 0.00014953390563752228
+    },
+    {
+      "split": "train",
+      "payment_format": "Reinvestment",
+      "n": 650458,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "split": "train",
+      "payment_format": "Wire",
+      "n": 139584,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "split": "validation",
+      "payment_format": "ACH",
+      "n": 156376,
+      "positive": 554,
+      "positive_rate": 0.0035427431319384048
+    },
+    {
+      "split": "validation",
+      "payment_format": "Bitcoin",
+      "n": 60211,
+      "positive": 19,
+      "positive_rate": 0.0003155569580309246
+    },
+    {
+      "split": "validation",
+      "payment_format": "Cash",
+      "n": 137975,
+      "positive": 28,
+      "positive_rate": 0.00020293531436854504
+    },
+    {
+      "split": "validation",
+      "payment_format": "Cheque",
+      "n": 532730,
+      "positive": 112,
+      "positive_rate": 0.00021023783154693748
+    },
+    {
+      "split": "validation",
+      "payment_format": "Credit Card",
+      "n": 380342,
+      "positive": 57,
+      "positive_rate": 0.0001498651213907483
+    },
+    {
+      "split": "validation",
+      "payment_format": "Wire",
+      "n": 48808,
+      "positive": 0,
+      "positive_rate": 0.0
+    }
+  ],
+  "currency_pair": [
+    {
+      "payment_currency": "Australian Dollar",
+      "receiving_currency": "Australian Dollar",
+      "n": 210736,
+      "positive": 77,
+      "positive_rate": 0.00036538607546883305
+    },
+    {
+      "payment_currency": "Australian Dollar",
+      "receiving_currency": "Bitcoin",
+      "n": 14,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Australian Dollar",
+      "receiving_currency": "Brazil Real",
+      "n": 12,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Australian Dollar",
+      "receiving_currency": "Canadian Dollar",
+      "n": 1,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Australian Dollar",
+      "receiving_currency": "Euro",
+      "n": 39,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Australian Dollar",
+      "receiving_currency": "Mexican Peso",
+      "n": 22,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Australian Dollar",
+      "receiving_currency": "Rupee",
+      "n": 2,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Australian Dollar",
+      "receiving_currency": "Saudi Riyal",
+      "n": 38,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Australian Dollar",
+      "receiving_currency": "Shekel",
+      "n": 4,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Australian Dollar",
+      "receiving_currency": "Swiss Franc",
+      "n": 21,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Australian Dollar",
+      "receiving_currency": "UK Pound",
+      "n": 2,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Australian Dollar",
+      "receiving_currency": "US Dollar",
+      "n": 251,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Australian Dollar",
+      "receiving_currency": "Yen",
+      "n": 4,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Australian Dollar",
+      "receiving_currency": "Yuan",
+      "n": 9,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Bitcoin",
+      "receiving_currency": "Australian Dollar",
+      "n": 2,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Bitcoin",
+      "receiving_currency": "Bitcoin",
+      "n": 309160,
+      "positive": 110,
+      "positive_rate": 0.0003558028205459956
+    },
+    {
+      "payment_currency": "Bitcoin",
+      "receiving_currency": "Brazil Real",
+      "n": 3,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Bitcoin",
+      "receiving_currency": "Canadian Dollar",
+      "n": 5,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Bitcoin",
+      "receiving_currency": "Euro",
+      "n": 35,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Bitcoin",
+      "receiving_currency": "Mexican Peso",
+      "n": 1,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Bitcoin",
+      "receiving_currency": "Rupee",
+      "n": 2,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Bitcoin",
+      "receiving_currency": "Shekel",
+      "n": 1,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Bitcoin",
+      "receiving_currency": "Swiss Franc",
+      "n": 1,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Bitcoin",
+      "receiving_currency": "UK Pound",
+      "n": 1,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Bitcoin",
+      "receiving_currency": "US Dollar",
+      "n": 23,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Bitcoin",
+      "receiving_currency": "Yen",
+      "n": 3,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Bitcoin",
+      "receiving_currency": "Yuan",
+      "n": 3,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Brazil Real",
+      "receiving_currency": "Australian Dollar",
+      "n": 1,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Brazil Real",
+      "receiving_currency": "Bitcoin",
+      "n": 13,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Brazil Real",
+      "receiving_currency": "Brazil Real",
+      "n": 199663,
+      "positive": 72,
+      "positive_rate": 0.0003606076238461808
+    },
+    {
+      "payment_currency": "Brazil Real",
+      "receiving_currency": "Canadian Dollar",
+      "n": 3,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Brazil Real",
+      "receiving_currency": "Euro",
+      "n": 39,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Brazil Real",
+      "receiving_currency": "Mexican Peso",
+      "n": 2,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Brazil Real",
+      "receiving_currency": "Rupee",
+      "n": 3,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Brazil Real",
+      "receiving_currency": "Saudi Riyal",
+      "n": 5,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Brazil Real",
+      "receiving_currency": "Shekel",
+      "n": 7,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Brazil Real",
+      "receiving_currency": "Swiss Franc",
+      "n": 3,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Brazil Real",
+      "receiving_currency": "UK Pound",
+      "n": 3,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Brazil Real",
+      "receiving_currency": "US Dollar",
+      "n": 92,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Brazil Real",
+      "receiving_currency": "Yen",
+      "n": 3,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Brazil Real",
+      "receiving_currency": "Yuan",
+      "n": 3,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Canadian Dollar",
+      "receiving_currency": "Australian Dollar",
+      "n": 5,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Canadian Dollar",
+      "receiving_currency": "Bitcoin",
+      "n": 39,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Canadian Dollar",
+      "receiving_currency": "Brazil Real",
+      "n": 42,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Canadian Dollar",
+      "receiving_currency": "Canadian Dollar",
+      "n": 174945,
+      "positive": 86,
+      "positive_rate": 0.0004915830689645318
+    },
+    {
+      "payment_currency": "Canadian Dollar",
+      "receiving_currency": "Euro",
+      "n": 98,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Canadian Dollar",
+      "receiving_currency": "Mexican Peso",
+      "n": 25,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Canadian Dollar",
+      "receiving_currency": "Rupee",
+      "n": 22,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Canadian Dollar",
+      "receiving_currency": "Saudi Riyal",
+      "n": 61,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Canadian Dollar",
+      "receiving_currency": "Shekel",
+      "n": 22,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Canadian Dollar",
+      "receiving_currency": "Swiss Franc",
+      "n": 62,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Canadian Dollar",
+      "receiving_currency": "UK Pound",
+      "n": 1,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Canadian Dollar",
+      "receiving_currency": "US Dollar",
+      "n": 731,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Canadian Dollar",
+      "receiving_currency": "Yen",
+      "n": 1,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Canadian Dollar",
+      "receiving_currency": "Yuan",
+      "n": 15,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Euro",
+      "receiving_currency": "Australian Dollar",
+      "n": 484,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Euro",
+      "receiving_currency": "Bitcoin",
+      "n": 228,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Euro",
+      "receiving_currency": "Brazil Real",
+      "n": 385,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Euro",
+      "receiving_currency": "Canadian Dollar",
+      "n": 374,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Euro",
+      "receiving_currency": "Euro",
+      "n": 1573457,
+      "positive": 1025,
+      "positive_rate": 0.0006514318472001459
+    },
+    {
+      "payment_currency": "Euro",
+      "receiving_currency": "Mexican Peso",
+      "n": 128,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Euro",
+      "receiving_currency": "Ruble",
+      "n": 130,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Euro",
+      "receiving_currency": "Rupee",
+      "n": 409,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Euro",
+      "receiving_currency": "Saudi Riyal",
+      "n": 442,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Euro",
+      "receiving_currency": "Shekel",
+      "n": 483,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Euro",
+      "receiving_currency": "Swiss Franc",
+      "n": 342,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Euro",
+      "receiving_currency": "UK Pound",
+      "n": 259,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Euro",
+      "receiving_currency": "US Dollar",
+      "n": 17549,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Euro",
+      "receiving_currency": "Yen",
+      "n": 448,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Euro",
+      "receiving_currency": "Yuan",
+      "n": 741,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Mexican Peso",
+      "receiving_currency": "Australian Dollar",
+      "n": 4,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Mexican Peso",
+      "receiving_currency": "Bitcoin",
+      "n": 10,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Mexican Peso",
+      "receiving_currency": "Brazil Real",
+      "n": 33,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Mexican Peso",
+      "receiving_currency": "Euro",
+      "n": 58,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Mexican Peso",
+      "receiving_currency": "Mexican Peso",
+      "n": 84232,
+      "positive": 37,
+      "positive_rate": 0.0004392629879380758
+    },
+    {
+      "payment_currency": "Mexican Peso",
+      "receiving_currency": "Rupee",
+      "n": 1,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Mexican Peso",
+      "receiving_currency": "Saudi Riyal",
+      "n": 24,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Mexican Peso",
+      "receiving_currency": "Shekel",
+      "n": 22,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Mexican Peso",
+      "receiving_currency": "Swiss Franc",
+      "n": 3,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Mexican Peso",
+      "receiving_currency": "UK Pound",
+      "n": 3,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Mexican Peso",
+      "receiving_currency": "US Dollar",
+      "n": 346,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Mexican Peso",
+      "receiving_currency": "Yuan",
+      "n": 5,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Ruble",
+      "receiving_currency": "Australian Dollar",
+      "n": 11,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Ruble",
+      "receiving_currency": "Bitcoin",
+      "n": 9,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Ruble",
+      "receiving_currency": "Brazil Real",
+      "n": 9,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Ruble",
+      "receiving_currency": "Canadian Dollar",
+      "n": 28,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Ruble",
+      "receiving_currency": "Euro",
+      "n": 109,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Ruble",
+      "receiving_currency": "Mexican Peso",
+      "n": 5,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Ruble",
+      "receiving_currency": "Ruble",
+      "n": 88089,
+      "positive": 39,
+      "positive_rate": 0.00044273405305997343
+    },
+    {
+      "payment_currency": "Ruble",
+      "receiving_currency": "Rupee",
+      "n": 16,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Ruble",
+      "receiving_currency": "Saudi Riyal",
+      "n": 18,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Ruble",
+      "receiving_currency": "Shekel",
+      "n": 34,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Ruble",
+      "receiving_currency": "Swiss Franc",
+      "n": 6,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Ruble",
+      "receiving_currency": "UK Pound",
+      "n": 5,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Ruble",
+      "receiving_currency": "US Dollar",
+      "n": 146,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Ruble",
+      "receiving_currency": "Yen",
+      "n": 2,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Ruble",
+      "receiving_currency": "Yuan",
+      "n": 5,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Rupee",
+      "receiving_currency": "Australian Dollar",
+      "n": 41,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Rupee",
+      "receiving_currency": "Bitcoin",
+      "n": 10,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Rupee",
+      "receiving_currency": "Brazil Real",
+      "n": 58,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Rupee",
+      "receiving_currency": "Canadian Dollar",
+      "n": 7,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Rupee",
+      "receiving_currency": "Euro",
+      "n": 279,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Rupee",
+      "receiving_currency": "Mexican Peso",
+      "n": 27,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Rupee",
+      "receiving_currency": "Ruble",
+      "n": 41,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Rupee",
+      "receiving_currency": "Rupee",
+      "n": 339315,
+      "positive": 112,
+      "positive_rate": 0.00033007677232070495
+    },
+    {
+      "payment_currency": "Rupee",
+      "receiving_currency": "Saudi Riyal",
+      "n": 34,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Rupee",
+      "receiving_currency": "Shekel",
+      "n": 18,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Rupee",
+      "receiving_currency": "Swiss Franc",
+      "n": 17,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Rupee",
+      "receiving_currency": "UK Pound",
+      "n": 26,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Rupee",
+      "receiving_currency": "US Dollar",
+      "n": 749,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Rupee",
+      "receiving_currency": "Yen",
+      "n": 10,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Rupee",
+      "receiving_currency": "Yuan",
+      "n": 9,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Saudi Riyal",
+      "receiving_currency": "Bitcoin",
+      "n": 19,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Saudi Riyal",
+      "receiving_currency": "Canadian Dollar",
+      "n": 5,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Saudi Riyal",
+      "receiving_currency": "Euro",
+      "n": 30,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Saudi Riyal",
+      "receiving_currency": "Mexican Peso",
+      "n": 2,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Saudi Riyal",
+      "receiving_currency": "Ruble",
+      "n": 1,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Saudi Riyal",
+      "receiving_currency": "Rupee",
+      "n": 1,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Saudi Riyal",
+      "receiving_currency": "Saudi Riyal",
+      "n": 257773,
+      "positive": 115,
+      "positive_rate": 0.00044612895842466044
+    },
+    {
+      "payment_currency": "Saudi Riyal",
+      "receiving_currency": "Shekel",
+      "n": 1,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Saudi Riyal",
+      "receiving_currency": "Swiss Franc",
+      "n": 1,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Saudi Riyal",
+      "receiving_currency": "UK Pound",
+      "n": 4,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Saudi Riyal",
+      "receiving_currency": "US Dollar",
+      "n": 99,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Saudi Riyal",
+      "receiving_currency": "Yen",
+      "n": 6,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Saudi Riyal",
+      "receiving_currency": "Yuan",
+      "n": 6,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Shekel",
+      "receiving_currency": "Bitcoin",
+      "n": 8,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Shekel",
+      "receiving_currency": "Brazil Real",
+      "n": 1,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Shekel",
+      "receiving_currency": "Canadian Dollar",
+      "n": 4,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Shekel",
+      "receiving_currency": "Euro",
+      "n": 42,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Shekel",
+      "receiving_currency": "Mexican Peso",
+      "n": 2,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Shekel",
+      "receiving_currency": "Rupee",
+      "n": 2,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Shekel",
+      "receiving_currency": "Saudi Riyal",
+      "n": 2,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Shekel",
+      "receiving_currency": "Shekel",
+      "n": 174335,
+      "positive": 65,
+      "positive_rate": 0.0003728453838873433
+    },
+    {
+      "payment_currency": "Shekel",
+      "receiving_currency": "UK Pound",
+      "n": 3,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Shekel",
+      "receiving_currency": "US Dollar",
+      "n": 123,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Shekel",
+      "receiving_currency": "Yen",
+      "n": 1,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Shekel",
+      "receiving_currency": "Yuan",
+      "n": 7,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Swiss Franc",
+      "receiving_currency": "Australian Dollar",
+      "n": 2,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Swiss Franc",
+      "receiving_currency": "Bitcoin",
+      "n": 40,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Swiss Franc",
+      "receiving_currency": "Canadian Dollar",
+      "n": 2,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Swiss Franc",
+      "receiving_currency": "Euro",
+      "n": 34,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Swiss Franc",
+      "receiving_currency": "Mexican Peso",
+      "n": 3,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Swiss Franc",
+      "receiving_currency": "Rupee",
+      "n": 2,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Swiss Franc",
+      "receiving_currency": "Saudi Riyal",
+      "n": 8,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Swiss Franc",
+      "receiving_currency": "Shekel",
+      "n": 12,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Swiss Franc",
+      "receiving_currency": "Swiss Franc",
+      "n": 137893,
+      "positive": 56,
+      "positive_rate": 0.0004061119853799685
+    },
+    {
+      "payment_currency": "Swiss Franc",
+      "receiving_currency": "UK Pound",
+      "n": 3,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Swiss Franc",
+      "receiving_currency": "US Dollar",
+      "n": 244,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Swiss Franc",
+      "receiving_currency": "Yen",
+      "n": 6,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Swiss Franc",
+      "receiving_currency": "Yuan",
+      "n": 2,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "UK Pound",
+      "receiving_currency": "Australian Dollar",
+      "n": 123,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "UK Pound",
+      "receiving_currency": "Bitcoin",
+      "n": 143,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "UK Pound",
+      "receiving_currency": "Brazil Real",
+      "n": 74,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "UK Pound",
+      "receiving_currency": "Canadian Dollar",
+      "n": 71,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "UK Pound",
+      "receiving_currency": "Euro",
+      "n": 332,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "UK Pound",
+      "receiving_currency": "Mexican Peso",
+      "n": 45,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "UK Pound",
+      "receiving_currency": "Ruble",
+      "n": 1,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "UK Pound",
+      "receiving_currency": "Rupee",
+      "n": 24,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "UK Pound",
+      "receiving_currency": "Saudi Riyal",
+      "n": 141,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "UK Pound",
+      "receiving_currency": "Shekel",
+      "n": 46,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "UK Pound",
+      "receiving_currency": "Swiss Franc",
+      "n": 87,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "UK Pound",
+      "receiving_currency": "UK Pound",
+      "n": 96424,
+      "positive": 40,
+      "positive_rate": 0.0004148344810420642
+    },
+    {
+      "payment_currency": "UK Pound",
+      "receiving_currency": "US Dollar",
+      "n": 2111,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "UK Pound",
+      "receiving_currency": "Yen",
+      "n": 4,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "UK Pound",
+      "receiving_currency": "Yuan",
+      "n": 42,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "US Dollar",
+      "receiving_currency": "Australian Dollar",
+      "n": 2155,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "US Dollar",
+      "receiving_currency": "Bitcoin",
+      "n": 3156,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "US Dollar",
+      "receiving_currency": "Brazil Real",
+      "n": 2137,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "US Dollar",
+      "receiving_currency": "Canadian Dollar",
+      "n": 2172,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "US Dollar",
+      "receiving_currency": "Euro",
+      "n": 19860,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "US Dollar",
+      "receiving_currency": "Mexican Peso",
+      "n": 783,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "US Dollar",
+      "receiving_currency": "Ruble",
+      "n": 742,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "US Dollar",
+      "receiving_currency": "Rupee",
+      "n": 3950,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "US Dollar",
+      "receiving_currency": "Saudi Riyal",
+      "n": 2984,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "US Dollar",
+      "receiving_currency": "Shekel",
+      "n": 2087,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "US Dollar",
+      "receiving_currency": "Swiss Franc",
+      "n": 1386,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "US Dollar",
+      "receiving_currency": "UK Pound",
+      "n": 1143,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "US Dollar",
+      "receiving_currency": "US Dollar",
+      "n": 2502756,
+      "positive": 1456,
+      "positive_rate": 0.0005817586692430265
+    },
+    {
+      "payment_currency": "US Dollar",
+      "receiving_currency": "Yen",
+      "n": 2510,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "US Dollar",
+      "receiving_currency": "Yuan",
+      "n": 6066,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yen",
+      "receiving_currency": "Australian Dollar",
+      "n": 41,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yen",
+      "receiving_currency": "Bitcoin",
+      "n": 15,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yen",
+      "receiving_currency": "Brazil Real",
+      "n": 7,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yen",
+      "receiving_currency": "Canadian Dollar",
+      "n": 8,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yen",
+      "receiving_currency": "Euro",
+      "n": 367,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yen",
+      "receiving_currency": "Mexican Peso",
+      "n": 4,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yen",
+      "receiving_currency": "Ruble",
+      "n": 3,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yen",
+      "receiving_currency": "Rupee",
+      "n": 73,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yen",
+      "receiving_currency": "Saudi Riyal",
+      "n": 41,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yen",
+      "receiving_currency": "Shekel",
+      "n": 6,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yen",
+      "receiving_currency": "Swiss Franc",
+      "n": 1,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yen",
+      "receiving_currency": "UK Pound",
+      "n": 25,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yen",
+      "receiving_currency": "US Dollar",
+      "n": 1166,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yen",
+      "receiving_currency": "Yen",
+      "n": 208349,
+      "positive": 86,
+      "positive_rate": 0.000412768959774225
+    },
+    {
+      "payment_currency": "Yen",
+      "receiving_currency": "Yuan",
+      "n": 19,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yuan",
+      "receiving_currency": "Australian Dollar",
+      "n": 300,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yuan",
+      "receiving_currency": "Bitcoin",
+      "n": 332,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yuan",
+      "receiving_currency": "Brazil Real",
+      "n": 293,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yuan",
+      "receiving_currency": "Canadian Dollar",
+      "n": 341,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yuan",
+      "receiving_currency": "Euro",
+      "n": 1628,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yuan",
+      "receiving_currency": "Mexican Peso",
+      "n": 93,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yuan",
+      "receiving_currency": "Ruble",
+      "n": 133,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yuan",
+      "receiving_currency": "Rupee",
+      "n": 415,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yuan",
+      "receiving_currency": "Saudi Riyal",
+      "n": 311,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yuan",
+      "receiving_currency": "Shekel",
+      "n": 220,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yuan",
+      "receiving_currency": "Swiss Franc",
+      "n": 253,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yuan",
+      "receiving_currency": "UK Pound",
+      "n": 98,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yuan",
+      "receiving_currency": "US Dollar",
+      "n": 10856,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yuan",
+      "receiving_currency": "Yen",
+      "n": 284,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_currency": "Yuan",
+      "receiving_currency": "Yuan",
+      "n": 468046,
+      "positive": 189,
+      "positive_rate": 0.000403806463467266
+    }
+  ],
+  "flags": {
+    "self_loop": [
+      {
+        "split": "test",
+        "self_loop": false,
+        "n": 1151700,
+        "positive": 801,
+        "positive_rate": 0.0006954936181297213
+      },
+      {
+        "split": "test",
+        "self_loop": true,
+        "n": 22973,
+        "positive": 1,
+        "positive_rate": 4.3529360553693465e-05
+      },
+      {
+        "split": "train",
+        "self_loop": false,
+        "n": 3678803,
+        "positive": 1991,
+        "positive_rate": 0.0005412086485740063
+      },
+      {
+        "split": "train",
+        "self_loop": true,
+        "n": 754131,
+        "positive": 2,
+        "positive_rate": 2.6520591250061328e-06
+      },
+      {
+        "split": "validation",
+        "self_loop": false,
+        "n": 1289069,
+        "positive": 770,
+        "positive_rate": 0.0005973303213404402
+      },
+      {
+        "split": "validation",
+        "self_loop": true,
+        "n": 27373,
+        "positive": 0,
+        "positive_rate": 0.0
+      }
+    ],
+    "same_bank": [
+      {
+        "split": "test",
+        "same_bank": false,
+        "n": 1132484,
+        "positive": 784,
+        "positive_rate": 0.0006922835112902258
+      },
+      {
+        "split": "test",
+        "same_bank": true,
+        "n": 42189,
+        "positive": 18,
+        "positive_rate": 0.00042665149683566804
+      },
+      {
+        "split": "train",
+        "same_bank": false,
+        "n": 3613992,
+        "positive": 1954,
+        "positive_rate": 0.0005406763490345303
+      },
+      {
+        "split": "train",
+        "same_bank": true,
+        "n": 818942,
+        "positive": 39,
+        "positive_rate": 4.762242014697012e-05
+      },
+      {
+        "split": "validation",
+        "same_bank": false,
+        "n": 1265571,
+        "positive": 754,
+        "positive_rate": 0.0005957785063026886
+      },
+      {
+        "split": "validation",
+        "same_bank": true,
+        "n": 50871,
+        "positive": 16,
+        "positive_rate": 0.0003145210434235616
+      }
+    ],
+    "cross_currency": [
+      {
+        "split": "test",
+        "cross_currency": false,
+        "n": 1156450,
+        "positive": 802,
+        "positive_rate": 0.0006935016645769381
+      },
+      {
+        "split": "test",
+        "cross_currency": true,
+        "n": 18223,
+        "positive": 0,
+        "positive_rate": 0.0
+      },
+      {
+        "split": "train",
+        "cross_currency": false,
+        "n": 4373700,
+        "positive": 1993,
+        "positive_rate": 0.00045567825868257996
+      },
+      {
+        "split": "train",
+        "cross_currency": true,
+        "n": 59234,
+        "positive": 0,
+        "positive_rate": 0.0
+      },
+      {
+        "split": "validation",
+        "cross_currency": false,
+        "n": 1295023,
+        "positive": 770,
+        "positive_rate": 0.0005945840344148327
+      },
+      {
+        "split": "validation",
+        "cross_currency": true,
+        "n": 21419,
+        "positive": 0,
+        "positive_rate": 0.0
+      }
+    ],
+    "different_amount": [
+      {
+        "split": "test",
+        "different_amount": false,
+        "n": 1156450,
+        "positive": 802,
+        "positive_rate": 0.0006935016645769381
+      },
+      {
+        "split": "test",
+        "different_amount": true,
+        "n": 18223,
+        "positive": 0,
+        "positive_rate": 0.0
+      },
+      {
+        "split": "train",
+        "different_amount": false,
+        "n": 4373717,
+        "positive": 1993,
+        "positive_rate": 0.00045567648752765667
+      },
+      {
+        "split": "train",
+        "different_amount": true,
+        "n": 59217,
+        "positive": 0,
+        "positive_rate": 0.0
+      },
+      {
+        "split": "validation",
+        "different_amount": false,
+        "n": 1295024,
+        "positive": 770,
+        "positive_rate": 0.0005945835752850912
+      },
+      {
+        "split": "validation",
+        "different_amount": true,
+        "n": 21418,
+        "positive": 0,
+        "positive_rate": 0.0
+      }
+    ]
+  },
+  "amounts": [
+    {
+      "split": "train",
+      "label": 0,
+      "received": {
+        "min": 1e-06,
+        "p25": 164.09,
+        "p50": 1498.16,
+        "p75": 14168.23,
+        "p90": 162410.88,
+        "p95": 755879.28,
+        "p99": 15838028.147999782,
+        "max": 3644853662746.95,
+        "n": 4430941,
+        "mean": 7636142.87024443
+      },
+      "paid": {
+        "min": 1e-06,
+        "p25": 165.07,
+        "p50": 1500.03,
+        "p75": 14082.57,
+        "p90": 159113.52,
+        "p95": 729343.75,
+        "p99": 14684096.25,
+        "max": 3644853662746.95,
+        "n": 4430941,
+        "mean": 5618441.000073593
+      }
+    },
+    {
+      "split": "train",
+      "label": 1,
+      "received": {
+        "min": 0.008827,
+        "p25": 1429.35,
+        "p50": 4124.74,
+        "p75": 14319.91,
+        "p90": 77027.45599999999,
+        "p95": 355805.14599999995,
+        "p99": 48026292.44479787,
+        "max": 1927897655.23,
+        "n": 1993,
+        "mean": 3434193.115923656
+      },
+      "paid": {
+        "min": 0.008827,
+        "p25": 1429.35,
+        "p50": 4124.74,
+        "p75": 14319.91,
+        "p90": 77027.45599999999,
+        "p95": 355805.14599999995,
+        "p99": 48026292.44479787,
+        "max": 1927897655.23,
+        "n": 1993,
+        "mean": 3434193.115923656
+      }
+    },
+    {
+      "split": "validation",
+      "label": 0,
+      "received": {
+        "min": 1e-06,
+        "p25": 188.34,
+        "p50": 1264.87,
+        "p75": 9487.98,
+        "p90": 93122.81100000028,
+        "p95": 424186.53,
+        "p99": 9107964.582200019,
+        "max": 244131558383.05,
+        "n": 1315672,
+        "mean": 3868444.6334559754
+      },
+      "paid": {
+        "min": 1e-06,
+        "p25": 189.47,
+        "p50": 1265.8,
+        "p75": 9414.04,
+        "p90": 90726.62000000096,
+        "p95": 406307.84399999934,
+        "p99": 8208488.64,
+        "max": 244131558383.05,
+        "n": 1315672,
+        "mean": 2721138.719505416
+      }
+    },
+    {
+      "split": "validation",
+      "label": 1,
+      "received": {
+        "min": 0.006269,
+        "p25": 1383.855,
+        "p50": 4284.0599999999995,
+        "p75": 12823.057499999999,
+        "p90": 88324.20999999999,
+        "p95": 303038.63499999815,
+        "p99": 45555178.026198745,
+        "max": 2473295320.18,
+        "n": 770,
+        "mean": 6057837.516230841
+      },
+      "paid": {
+        "min": 0.006269,
+        "p25": 1383.855,
+        "p50": 4284.0599999999995,
+        "p75": 12823.057499999999,
+        "p90": 88324.20999999999,
+        "p95": 303038.63499999815,
+        "p99": 45555178.026198745,
+        "max": 2473295320.18,
+        "n": 770,
+        "mean": 6057837.516230841
+      }
+    },
+    {
+      "split": "test",
+      "label": 0,
+      "received": {
+        "min": 1e-06,
+        "p25": 190.99,
+        "p50": 1221.47,
+        "p75": 9701.525,
+        "p90": 91276.89,
+        "p95": 426997.065,
+        "p99": 9554519.382000512,
+        "max": 677986739551.36,
+        "n": 1173871,
+        "mean": 4131899.355725439
+      },
+      "paid": {
+        "min": 1e-06,
+        "p25": 192.1,
+        "p50": 1225.79,
+        "p75": 9662.035,
+        "p90": 89255.69,
+        "p95": 409734.91,
+        "p99": 8562958.960000142,
+        "max": 677986739551.36,
+        "n": 1173871,
+        "mean": 3313028.590302988
+      }
+    },
+    {
+      "split": "test",
+      "label": 1,
+      "received": {
+        "min": 0.001136,
+        "p25": 1715.2324999999998,
+        "p50": 5124.21,
+        "p75": 14264.7875,
+        "p90": 33809.08199999998,
+        "p95": 188025.73599999823,
+        "p99": 3324075.695600001,
+        "max": 816678677.51,
+        "n": 802,
+        "mean": 1768740.3539248838
+      },
+      "paid": {
+        "min": 0.001136,
+        "p25": 1715.2324999999998,
+        "p50": 5124.21,
+        "p75": 14264.7875,
+        "p90": 33809.08199999998,
+        "p95": 188025.73599999823,
+        "p99": 3324075.695600001,
+        "max": 816678677.51,
+        "n": 802,
+        "mean": 1768740.3539248838
+      }
+    }
+  ],
+  "amount_note": "Raw amount quantiles mix currencies; do not interpret as comparable money values.",
+  "nonpositive_amounts": {
+    "amount_received": 0,
+    "amount_paid": 0
+  },
+  "pairs": {
+    "unique_pairs": 1384862,
+    "multiplicity": {
+      "min": 1.0,
+      "p25": 1.0,
+      "p50": 2.0,
+      "p75": 4.0,
+      "p90": 15.0,
+      "p95": 20.0,
+      "p99": 30.0,
+      "max": 81.0,
+      "n": 1384862,
+      "mean": 4.999811533567966
+    },
+    "mixed_label_pairs": 1299,
+    "by_label": [
+      {
+        "label": 0,
+        "n": 6920484,
+        "repeated_pair_full_graph": 0.9112021644728895,
+        "mixed_label_pair_full_graph": 0.002093206197716807
+      },
+      {
+        "label": 1,
+        "n": 3565,
+        "repeated_pair_full_graph": 0.38316970546984574,
+        "mixed_label_pair_full_graph": 0.3725105189340813
+      }
+    ],
+    "note": "Full-graph multiplicity/mixed labels are diagnostic only; never use as causal model inputs."
+  },
+  "history": [
+    {
+      "split": "train",
+      "label": 0,
+      "n": 4430941,
+      "prior_pair_count": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 2.0,
+        "p75": 6.0,
+        "p90": 10.0,
+        "p95": 13.0,
+        "p99": 19.0,
+        "max": 48.0,
+        "n": 4430941,
+        "mean": 3.909639509982191,
+        "fraction_nonzero": 0.7063576337396503
+      },
+      "incoming_count": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 3.0,
+        "p75": 8.0,
+        "p90": 16.0,
+        "p95": 66.0,
+        "p99": 786.0,
+        "max": 786.0,
+        "n": 4430941,
+        "mean": 27.20919890379944,
+        "fraction_nonzero": 0.6913147794114162
+      },
+      "outgoing_count": {
+        "min": 0.0,
+        "p25": 1.0,
+        "p50": 8.0,
+        "p75": 21.0,
+        "p90": 58.0,
+        "p95": 11663.0,
+        "p99": 89148.0,
+        "max": 133509.0,
+        "n": 4430941,
+        "mean": 3049.22742866583,
+        "fraction_nonzero": 0.776168087094818
+      },
+      "incoming_count_60m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p90": 0.0,
+        "p95": 1.0,
+        "p99": 19.0,
+        "max": 49.0,
+        "n": 4430941,
+        "mean": 0.45894833625633924,
+        "fraction_nonzero": 0.07003094827938354
+      },
+      "incoming_count_1440m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 3.0,
+        "p90": 5.0,
+        "p95": 7.0,
+        "p99": 241.0,
+        "max": 768.0,
+        "n": 4430941,
+        "mean": 7.351983472585169,
+        "fraction_nonzero": 0.4951966185060916
+      },
+      "incoming_count_4320m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 2.0,
+        "p75": 6.0,
+        "p90": 9.0,
+        "p95": 15.0,
+        "p99": 478.0,
+        "max": 786.0,
+        "n": 4430941,
+        "mean": 15.884877952561318,
+        "fraction_nonzero": 0.628958047511804
+      },
+      "outgoing_count_60m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 1.0,
+        "p90": 4.0,
+        "p95": 243.0,
+        "p99": 1178.0,
+        "max": 3800.0,
+        "n": 4430941,
+        "mean": 50.49281021796499,
+        "fraction_nonzero": 0.47205006792010995
+      },
+      "outgoing_count_1440m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 3.0,
+        "p75": 7.0,
+        "p90": 17.0,
+        "p95": 4611.0,
+        "p99": 24681.0,
+        "max": 34852.0,
+        "n": 4430941,
+        "mean": 983.0753900807978,
+        "fraction_nonzero": 0.7125903955841434
+      },
+      "outgoing_count_4320m": {
+        "min": 0.0,
+        "p25": 1.0,
+        "p50": 5.0,
+        "p75": 14.0,
+        "p90": 35.0,
+        "p95": 8428.0,
+        "p99": 53034.0,
+        "max": 74640.0,
+        "n": 4430941,
+        "mean": 2009.6664437644283,
+        "fraction_nonzero": 0.7698276731737118
+      },
+      "incoming_gap_minutes": {
+        "min": 1.0,
+        "p25": 255.0,
+        "p50": 707.0,
+        "p75": 1669.0,
+        "p90": 4143.0,
+        "p95": 5384.0,
+        "p99": 7207.0,
+        "max": 8639.0,
+        "n": 3063175,
+        "mean": 1386.6582441421074
+      },
+      "outgoing_gap_minutes": {
+        "min": 1.0,
+        "p25": 4.0,
+        "p50": 15.0,
+        "p75": 435.0,
+        "p90": 1343.0,
+        "p95": 1781.0,
+        "p99": 4166.0,
+        "max": 8631.0,
+        "n": 3439155,
+        "mean": 385.83768134905233
+      },
+      "prior_pair_gap": {
+        "min": 1.0,
+        "p25": 6.0,
+        "p50": 17.0,
+        "p75": 1301.0,
+        "p90": 2171.0,
+        "p95": 3759.0,
+        "p99": 4978.0,
+        "max": 8469.0,
+        "n": 3129829,
+        "mean": 755.4724229342881
+      }
+    },
+    {
+      "split": "train",
+      "label": 1,
+      "n": 1993,
+      "prior_pair_count": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 1.0,
+        "p90": 5.0,
+        "p95": 7.0,
+        "p99": 13.0,
+        "max": 20.0,
+        "n": 1993,
+        "mean": 1.1761164074259909,
+        "fraction_nonzero": 0.266432513798294
+      },
+      "incoming_count": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 3.0,
+        "p75": 12.0,
+        "p90": 176.0,
+        "p95": 478.0,
+        "p99": 786.0,
+        "max": 786.0,
+        "n": 1993,
+        "mean": 67.98645258404416,
+        "fraction_nonzero": 0.7109884596086302
+      },
+      "outgoing_count": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 4.0,
+        "p75": 185.0,
+        "p90": 33074.399999999994,
+        "p95": 68931.19999999998,
+        "p99": 118345.79999999997,
+        "max": 133487.0,
+        "n": 1993,
+        "mean": 8803.564475664827,
+        "fraction_nonzero": 0.6492724535875565
+      },
+      "incoming_count_60m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p90": 1.0,
+        "p95": 3.0,
+        "p99": 34.0,
+        "max": 43.0,
+        "n": 1993,
+        "mean": 1.183642749623683,
+        "fraction_nonzero": 0.10286001003512293
+      },
+      "incoming_count_1440m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 2.0,
+        "p90": 7.0,
+        "p95": 61.79999999999973,
+        "p99": 430.35999999999876,
+        "max": 744.0,
+        "n": 1993,
+        "mean": 16.50777722027095,
+        "fraction_nonzero": 0.40893125940792774
+      },
+      "incoming_count_4320m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 2.0,
+        "p75": 7.0,
+        "p90": 49.0,
+        "p95": 318.3999999999992,
+        "p99": 773.0,
+        "max": 786.0,
+        "n": 1993,
+        "mean": 37.6864024084295,
+        "fraction_nonzero": 0.6116407425990968
+      },
+      "outgoing_count_60m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 26.0,
+        "p90": 705.8,
+        "p95": 1067.9999999999993,
+        "p99": 1492.08,
+        "max": 3716.0,
+        "n": 1993,
+        "mean": 156.56547917711993,
+        "fraction_nonzero": 0.286001003512293
+      },
+      "outgoing_count_1440m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 1.0,
+        "p75": 185.0,
+        "p90": 13561.79999999999,
+        "p95": 23005.599999999955,
+        "p99": 30723.92,
+        "max": 34717.0,
+        "n": 1993,
+        "mean": 2904.8901154039136,
+        "fraction_nonzero": 0.5112895132965379
+      },
+      "outgoing_count_4320m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 2.0,
+        "p75": 185.0,
+        "p90": 28248.6,
+        "p95": 45631.19999999999,
+        "p99": 63246.23999999995,
+        "max": 71258.0,
+        "n": 1993,
+        "mean": 5809.854992473658,
+        "fraction_nonzero": 0.6181635725037632
+      },
+      "incoming_gap_minutes": {
+        "min": 1.0,
+        "p25": 266.0,
+        "p50": 997.0,
+        "p75": 3239.0,
+        "p90": 4847.8,
+        "p95": 5587.2,
+        "p99": 6796.68,
+        "max": 8297.0,
+        "n": 1417,
+        "mean": 1819.1714890613973
+      },
+      "outgoing_gap_minutes": {
+        "min": 1.0,
+        "p25": 1.0,
+        "p50": 152.0,
+        "p75": 1158.0,
+        "p90": 2973.7000000000007,
+        "p95": 4224.899999999995,
+        "p99": 6711.389999999995,
+        "max": 8455.0,
+        "n": 1294,
+        "mean": 887.6522411128284
+      },
+      "prior_pair_gap": {
+        "min": 1.0,
+        "p25": 8.0,
+        "p50": 496.0,
+        "p75": 1804.0,
+        "p90": 3224.0,
+        "p95": 4528.5,
+        "p99": 6544.700000000001,
+        "max": 8066.0,
+        "n": 531,
+        "mean": 1159.180790960452
+      }
+    },
+    {
+      "split": "validation",
+      "label": 0,
+      "n": 1315672,
+      "prior_pair_count": {
+        "min": 0.0,
+        "p25": 9.0,
+        "p50": 12.0,
+        "p75": 16.0,
+        "p90": 22.0,
+        "p95": 25.0,
+        "p99": 32.0,
+        "max": 64.0,
+        "n": 1315672,
+        "mean": 12.966520530953003,
+        "fraction_nonzero": 0.961304185237658
+      },
+      "incoming_count": {
+        "min": 0.0,
+        "p25": 4.0,
+        "p50": 14.0,
+        "p75": 22.0,
+        "p90": 42.0,
+        "p95": 478.0,
+        "p99": 786.0,
+        "max": 786.0,
+        "n": 1315672,
+        "mean": 55.43197392663217,
+        "fraction_nonzero": 0.9146040958536779
+      },
+      "outgoing_count": {
+        "min": 0.0,
+        "p25": 17.0,
+        "p50": 32.0,
+        "p75": 60.0,
+        "p90": 5745.0,
+        "p95": 97338.0,
+        "p99": 169455.0,
+        "max": 182619.0,
+        "n": 1315672,
+        "mean": 8939.27483141695,
+        "fraction_nonzero": 0.9869541952705537
+      },
+      "incoming_count_60m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p90": 0.0,
+        "p95": 0.0,
+        "p99": 2.0,
+        "max": 27.0,
+        "n": 1315672,
+        "mean": 0.0731299290400647,
+        "fraction_nonzero": 0.040272955569473246
+      },
+      "incoming_count_1440m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 1.0,
+        "p75": 3.0,
+        "p90": 4.0,
+        "p95": 6.0,
+        "p99": 8.0,
+        "max": 86.0,
+        "n": 1315672,
+        "mean": 1.7364206276336351,
+        "fraction_nonzero": 0.5684076274329772
+      },
+      "incoming_count_4320m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 4.0,
+        "p75": 8.0,
+        "p90": 12.0,
+        "p95": 14.0,
+        "p99": 18.0,
+        "max": 86.0,
+        "n": 1315672,
+        "mean": 4.948609531859004,
+        "fraction_nonzero": 0.6594151125812513
+      },
+      "outgoing_count_60m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 1.0,
+        "p75": 2.0,
+        "p90": 38.0,
+        "p95": 633.0,
+        "p99": 1047.0,
+        "max": 1142.0,
+        "n": 1315672,
+        "mean": 58.44907165311719,
+        "fraction_nonzero": 0.5730463215755903
+      },
+      "outgoing_count_1440m": {
+        "min": 0.0,
+        "p25": 2.0,
+        "p50": 5.0,
+        "p75": 10.0,
+        "p90": 875.0,
+        "p95": 15277.0,
+        "p99": 24713.0,
+        "max": 24851.0,
+        "n": 1315672,
+        "mean": 1389.3460581360705,
+        "fraction_nonzero": 0.9023442012902912
+      },
+      "outgoing_count_4320m": {
+        "min": 0.0,
+        "p25": 8.0,
+        "p50": 15.0,
+        "p75": 27.0,
+        "p90": 2548.0,
+        "p95": 45071.0,
+        "p99": 73717.0,
+        "max": 73953.0,
+        "n": 1315672,
+        "mean": 3955.404930712214,
+        "fraction_nonzero": 0.9821802090490639
+      },
+      "incoming_gap_minutes": {
+        "min": 1.0,
+        "p25": 417.0,
+        "p50": 987.0,
+        "p75": 6256.0,
+        "p90": 8555.0,
+        "p95": 9485.0,
+        "p99": 10759.0,
+        "max": 11517.0,
+        "n": 1203319,
+        "mean": 2808.4525450026135
+      },
+      "outgoing_gap_minutes": {
+        "min": 1.0,
+        "p25": 4.0,
+        "p50": 17.0,
+        "p75": 544.0,
+        "p90": 1391.0,
+        "p95": 1724.0,
+        "p99": 2510.0,
+        "max": 11498.0,
+        "n": 1298508,
+        "mean": 398.63484861086727
+      },
+      "prior_pair_gap": {
+        "min": 1.0,
+        "p25": 7.0,
+        "p50": 26.0,
+        "p75": 1434.0,
+        "p90": 1991.0,
+        "p95": 2291.0,
+        "p99": 2882.0,
+        "max": 11329.0,
+        "n": 1264761,
+        "mean": 759.7631426016457
+      }
+    },
+    {
+      "split": "validation",
+      "label": 1,
+      "n": 770,
+      "prior_pair_count": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 4.0,
+        "p90": 13.100000000000023,
+        "p95": 16.0,
+        "p99": 23.0,
+        "max": 34.0,
+        "n": 770,
+        "mean": 3.379220779220779,
+        "fraction_nonzero": 0.34415584415584416
+      },
+      "incoming_count": {
+        "min": 0.0,
+        "p25": 1.0,
+        "p50": 12.0,
+        "p75": 34.0,
+        "p90": 478.0,
+        "p95": 786.0,
+        "p99": 786.0,
+        "max": 786.0,
+        "n": 770,
+        "mean": 109.92987012987012,
+        "fraction_nonzero": 0.7961038961038961
+      },
+      "outgoing_count": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 12.0,
+        "p75": 5790.25,
+        "p90": 107773.80000000002,
+        "p95": 156690.19999999998,
+        "p99": 177854.13999999996,
+        "max": 182227.0,
+        "n": 770,
+        "mean": 20990.83896103896,
+        "fraction_nonzero": 0.7454545454545455
+      },
+      "incoming_count_60m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p90": 0.0,
+        "p95": 0.0,
+        "p99": 1.0,
+        "max": 3.0,
+        "n": 770,
+        "mean": 0.02727272727272727,
+        "fraction_nonzero": 0.01818181818181818
+      },
+      "incoming_count_1440m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 1.0,
+        "p90": 3.0,
+        "p95": 4.0,
+        "p99": 7.309999999999945,
+        "max": 10.0,
+        "n": 770,
+        "mean": 0.8428571428571429,
+        "fraction_nonzero": 0.2805194805194805
+      },
+      "incoming_count_4320m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 4.0,
+        "p90": 8.100000000000023,
+        "p95": 12.0,
+        "p99": 18.309999999999945,
+        "max": 27.0,
+        "n": 770,
+        "mean": 2.5792207792207793,
+        "fraction_nonzero": 0.38311688311688313
+      },
+      "outgoing_count_60m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 33.0,
+        "p90": 666.1,
+        "p95": 1017.55,
+        "p99": 1069.9299999999998,
+        "max": 1095.0,
+        "n": 770,
+        "mean": 136.0766233766234,
+        "fraction_nonzero": 0.3038961038961039
+      },
+      "outgoing_count_1440m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 2.0,
+        "p75": 868.5,
+        "p90": 15346.5,
+        "p95": 24590.0,
+        "p99": 24778.86,
+        "max": 24835.0,
+        "n": 770,
+        "mean": 3270.836363636364,
+        "fraction_nonzero": 0.5623376623376624
+      },
+      "outgoing_count_4320m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 6.0,
+        "p75": 2552.75,
+        "p90": 45971.3,
+        "p95": 72833.74999999999,
+        "p99": 73865.0,
+        "max": 73939.0,
+        "n": 770,
+        "mean": 9298.296103896104,
+        "fraction_nonzero": 0.6337662337662338
+      },
+      "incoming_gap_minutes": {
+        "min": 2.0,
+        "p25": 861.0,
+        "p50": 5809.0,
+        "p75": 7535.0,
+        "p90": 8513.2,
+        "p95": 8900.4,
+        "p99": 9914.439999999999,
+        "max": 11090.0,
+        "n": 613,
+        "mean": 4413.962479608483
+      },
+      "outgoing_gap_minutes": {
+        "min": 1.0,
+        "p25": 1.0,
+        "p50": 223.0,
+        "p75": 1361.5,
+        "p90": 7055.000000000008,
+        "p95": 8562.050000000003,
+        "p99": 10564.099999999999,
+        "max": 11345.0,
+        "n": 574,
+        "mean": 1606.6411149825783
+      },
+      "prior_pair_gap": {
+        "min": 1.0,
+        "p25": 13.0,
+        "p50": 1004.0,
+        "p75": 1995.0,
+        "p90": 5332.999999999998,
+        "p95": 6864.999999999997,
+        "p99": 9542.44,
+        "max": 11345.0,
+        "n": 265,
+        "mean": 1700.9547169811322
+      }
+    },
+    {
+      "split": "test",
+      "label": 0,
+      "n": 1173871,
+      "prior_pair_count": {
+        "min": 0.0,
+        "p25": 6.0,
+        "p50": 16.0,
+        "p75": 19.0,
+        "p90": 27.0,
+        "p95": 33.0,
+        "p99": 42.0,
+        "max": 79.0,
+        "n": 1173871,
+        "mean": 14.501764674312595,
+        "fraction_nonzero": 0.9596497400480973
+      },
+      "incoming_count": {
+        "min": 0.0,
+        "p25": 1.0,
+        "p50": 17.0,
+        "p75": 26.0,
+        "p90": 47.0,
+        "p95": 609.0,
+        "p99": 1483.0,
+        "max": 1553.0,
+        "n": 1173871,
+        "mean": 77.06255286994909,
+        "fraction_nonzero": 0.8366021479361871
+      },
+      "outgoing_count": {
+        "min": 0.0,
+        "p25": 17.0,
+        "p50": 37.0,
+        "p75": 71.0,
+        "p90": 163.0,
+        "p95": 119384.0,
+        "p99": 210250.0,
+        "max": 222031.0,
+        "n": 1173871,
+        "mean": 10299.171209613321,
+        "fraction_nonzero": 0.9872583955136467
+      },
+      "incoming_count_60m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p90": 1.0,
+        "p95": 4.0,
+        "p99": 33.0,
+        "max": 53.0,
+        "n": 1173871,
+        "mean": 1.2577949365816177,
+        "fraction_nonzero": 0.10557207734069587
+      },
+      "incoming_count_1440m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 2.0,
+        "p75": 4.0,
+        "p90": 8.0,
+        "p95": 92.0,
+        "p99": 541.0,
+        "max": 767.0,
+        "n": 1173871,
+        "mean": 21.079064053886672,
+        "fraction_nonzero": 0.6122631873519322
+      },
+      "incoming_count_4320m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 6.0,
+        "p75": 10.0,
+        "p90": 18.0,
+        "p95": 115.0,
+        "p99": 697.0,
+        "max": 767.0,
+        "n": 1173871,
+        "mean": 29.076533963271945,
+        "fraction_nonzero": 0.7084347428294931
+      },
+      "outgoing_count_60m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 1.0,
+        "p75": 1.0,
+        "p90": 4.0,
+        "p95": 290.0,
+        "p99": 1247.0,
+        "max": 1339.0,
+        "n": 1173871,
+        "mean": 52.89971470459701,
+        "fraction_nonzero": 0.5185220522527603
+      },
+      "outgoing_count_1440m": {
+        "min": 0.0,
+        "p25": 1.0,
+        "p50": 4.0,
+        "p75": 9.0,
+        "p90": 22.0,
+        "p95": 13553.0,
+        "p99": 27671.0,
+        "max": 29631.0,
+        "n": 1173871,
+        "mean": 1285.8144532065278,
+        "fraction_nonzero": 0.8127187740390553
+      },
+      "outgoing_count_4320m": {
+        "min": 0.0,
+        "p25": 6.0,
+        "p50": 13.0,
+        "p75": 26.0,
+        "p90": 62.0,
+        "p95": 46109.0,
+        "p99": 77011.0,
+        "max": 78745.0,
+        "n": 1173871,
+        "mean": 3817.9989990382246,
+        "fraction_nonzero": 0.8808702148702882
+      },
+      "incoming_gap_minutes": {
+        "min": 1.0,
+        "p25": 253.0,
+        "p50": 741.0,
+        "p75": 1529.0,
+        "p90": 10841.0,
+        "p95": 12051.0,
+        "p99": 13100.0,
+        "max": 15190.0,
+        "n": 982063,
+        "mean": 2301.5445862434485
+      },
+      "outgoing_gap_minutes": {
+        "min": 1.0,
+        "p25": 5.0,
+        "p50": 24.0,
+        "p75": 950.0,
+        "p90": 9055.0,
+        "p95": 10116.0,
+        "p99": 10938.0,
+        "max": 19345.0,
+        "n": 1158914,
+        "mean": 1394.9172035198471
+      },
+      "prior_pair_gap": {
+        "min": 1.0,
+        "p25": 8.0,
+        "p50": 644.0,
+        "p75": 1867.0,
+        "p90": 9818.0,
+        "p95": 10353.0,
+        "p99": 11057.0,
+        "max": 18517.0,
+        "n": 1126505,
+        "mean": 2105.0583645878182
+      }
+    },
+    {
+      "split": "test",
+      "label": 1,
+      "n": 802,
+      "prior_pair_count": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 1.0,
+        "p90": 16.0,
+        "p95": 19.0,
+        "p99": 28.0,
+        "max": 33.0,
+        "n": 802,
+        "mean": 3.021197007481297,
+        "fraction_nonzero": 0.2942643391521197
+      },
+      "incoming_count": {
+        "min": 0.0,
+        "p25": 1.0,
+        "p50": 11.0,
+        "p75": 32.0,
+        "p90": 859.9,
+        "p95": 1324.199999999999,
+        "p99": 1553.0,
+        "max": 1553.0,
+        "n": 802,
+        "mean": 159.96134663341647,
+        "fraction_nonzero": 0.8079800498753117
+      },
+      "outgoing_count": {
+        "min": 0.0,
+        "p25": 1.0,
+        "p50": 10.0,
+        "p75": 88.0,
+        "p90": 130748.5,
+        "p95": 203103.99999999994,
+        "p99": 217213.16,
+        "max": 220509.0,
+        "n": 802,
+        "mean": 23571.21072319202,
+        "fraction_nonzero": 0.7830423940149626
+      },
+      "incoming_count_60m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p90": 4.0,
+        "p95": 25.0,
+        "p99": 37.98000000000002,
+        "max": 43.0,
+        "n": 802,
+        "mean": 2.5099750623441395,
+        "fraction_nonzero": 0.15336658354114713
+      },
+      "incoming_count_1440m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 1.0,
+        "p75": 3.0,
+        "p90": 153.69999999999993,
+        "p95": 433.94999999999993,
+        "p99": 677.98,
+        "max": 727.0,
+        "n": 802,
+        "mean": 50.231920199501246,
+        "fraction_nonzero": 0.5062344139650873
+      },
+      "incoming_count_4320m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 2.0,
+        "p75": 9.0,
+        "p90": 197.5999999999999,
+        "p95": 538.1999999999989,
+        "p99": 767.0,
+        "max": 767.0,
+        "n": 802,
+        "mean": 63.6571072319202,
+        "fraction_nonzero": 0.6807980049875312
+      },
+      "outgoing_count_60m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p90": 395.9,
+        "p95": 1177.7499999999995,
+        "p99": 1261.99,
+        "max": 1339.0,
+        "n": 802,
+        "mean": 114.01870324189527,
+        "fraction_nonzero": 0.2144638403990025
+      },
+      "outgoing_count_1440m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 1.0,
+        "p75": 8.0,
+        "p90": 16625.29999999999,
+        "p95": 25991.499999999993,
+        "p99": 28749.99,
+        "max": 29354.0,
+        "n": 802,
+        "mean": 2935.643391521197,
+        "fraction_nonzero": 0.5112219451371571
+      },
+      "outgoing_count_4320m": {
+        "min": 0.0,
+        "p25": 0.0,
+        "p50": 4.0,
+        "p75": 26.75,
+        "p90": 48294.1,
+        "p95": 75617.24999999999,
+        "p99": 78004.78,
+        "max": 78583.0,
+        "n": 802,
+        "mean": 8675.340399002494,
+        "fraction_nonzero": 0.6321695760598504
+      },
+      "incoming_gap_minutes": {
+        "min": 1.0,
+        "p25": 182.75,
+        "p50": 932.0,
+        "p75": 2661.75,
+        "p90": 5897.300000000004,
+        "p95": 10653.049999999997,
+        "p99": 13180.689999999988,
+        "max": 15190.0,
+        "n": 648,
+        "mean": 2211.4475308641977
+      },
+      "outgoing_gap_minutes": {
+        "min": 1.0,
+        "p25": 26.0,
+        "p50": 624.0,
+        "p75": 2603.5,
+        "p90": 9817.700000000004,
+        "p95": 12015.35,
+        "p99": 13979.44,
+        "max": 19345.0,
+        "n": 628,
+        "mean": 2473.3837579617834
+      },
+      "prior_pair_gap": {
+        "min": 1.0,
+        "p25": 19.75,
+        "p50": 1404.0,
+        "p75": 4060.0,
+        "p90": 10079.0,
+        "p95": 10593.75,
+        "p99": 11951.2,
+        "max": 12387.0,
+        "n": 236,
+        "mean": 2877.915254237288
+      }
+    }
+  ],
+  "history_by_format": [
+    {
+      "split": "test",
+      "payment_format": "ACH",
+      "prior_in_24h": false,
+      "n": 75369,
+      "positive": 384,
+      "positive_rate": 0.0050949329299844765
+    },
+    {
+      "split": "test",
+      "payment_format": "ACH",
+      "prior_in_24h": true,
+      "n": 81990,
+      "positive": 251,
+      "positive_rate": 0.0030613489449932917
+    },
+    {
+      "split": "test",
+      "payment_format": "Bitcoin",
+      "prior_in_24h": false,
+      "n": 23840,
+      "positive": 9,
+      "positive_rate": 0.0003775167785234899
+    },
+    {
+      "split": "test",
+      "payment_format": "Bitcoin",
+      "prior_in_24h": true,
+      "n": 27812,
+      "positive": 11,
+      "positive_rate": 0.0003955127283187114
+    },
+    {
+      "split": "test",
+      "payment_format": "Cash",
+      "prior_in_24h": false,
+      "n": 35105,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "split": "test",
+      "payment_format": "Cash",
+      "prior_in_24h": true,
+      "n": 87464,
+      "positive": 16,
+      "positive_rate": 0.00018293240647580719
+    },
+    {
+      "split": "test",
+      "payment_format": "Cheque",
+      "prior_in_24h": false,
+      "n": 167180,
+      "positive": 3,
+      "positive_rate": 1.7944730230888862e-05
+    },
+    {
+      "split": "test",
+      "payment_format": "Cheque",
+      "prior_in_24h": true,
+      "n": 298995,
+      "positive": 83,
+      "positive_rate": 0.0002775966153280155
+    },
+    {
+      "split": "test",
+      "payment_format": "Credit Card",
+      "prior_in_24h": false,
+      "n": 143021,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "split": "test",
+      "payment_format": "Credit Card",
+      "prior_in_24h": true,
+      "n": 193722,
+      "positive": 45,
+      "positive_rate": 0.00023229163440393968
+    },
+    {
+      "split": "test",
+      "payment_format": "Wire",
+      "prior_in_24h": false,
+      "n": 11034,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "split": "test",
+      "payment_format": "Wire",
+      "prior_in_24h": true,
+      "n": 29141,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "split": "train",
+      "payment_format": "ACH",
+      "prior_in_24h": false,
+      "n": 241408,
+      "positive": 889,
+      "positive_rate": 0.00368256230116649
+    },
+    {
+      "split": "train",
+      "payment_format": "ACH",
+      "prior_in_24h": true,
+      "n": 241438,
+      "positive": 533,
+      "positive_rate": 0.00220760609348984
+    },
+    {
+      "split": "train",
+      "payment_format": "Bitcoin",
+      "prior_in_24h": false,
+      "n": 115416,
+      "positive": 50,
+      "positive_rate": 0.00043321549871768215
+    },
+    {
+      "split": "train",
+      "payment_format": "Bitcoin",
+      "prior_in_24h": true,
+      "n": 81929,
+      "positive": 21,
+      "positive_rate": 0.00025631949614910473
+    },
+    {
+      "split": "train",
+      "payment_format": "Cash",
+      "prior_in_24h": false,
+      "n": 157916,
+      "positive": 41,
+      "positive_rate": 0.000259631702930672
+    },
+    {
+      "split": "train",
+      "payment_format": "Cash",
+      "prior_in_24h": true,
+      "n": 237228,
+      "positive": 39,
+      "positive_rate": 0.00016439880621174567
+    },
+    {
+      "split": "train",
+      "payment_format": "Cheque",
+      "prior_in_24h": false,
+      "n": 653834,
+      "positive": 125,
+      "positive_rate": 0.00019118002428751029
+    },
+    {
+      "split": "train",
+      "payment_format": "Cheque",
+      "prior_in_24h": true,
+      "n": 850419,
+      "positive": 136,
+      "positive_rate": 0.00015992116827116985
+    },
+    {
+      "split": "train",
+      "payment_format": "Credit Card",
+      "prior_in_24h": false,
+      "n": 495368,
+      "positive": 73,
+      "positive_rate": 0.00014736519113063418
+    },
+    {
+      "split": "train",
+      "payment_format": "Credit Card",
+      "prior_in_24h": true,
+      "n": 567936,
+      "positive": 86,
+      "positive_rate": 0.00015142551273382917
+    },
+    {
+      "split": "train",
+      "payment_format": "Reinvestment",
+      "prior_in_24h": false,
+      "n": 521853,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "split": "train",
+      "payment_format": "Reinvestment",
+      "prior_in_24h": true,
+      "n": 128605,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "split": "train",
+      "payment_format": "Wire",
+      "prior_in_24h": false,
+      "n": 52137,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "split": "train",
+      "payment_format": "Wire",
+      "prior_in_24h": true,
+      "n": 87447,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "split": "validation",
+      "payment_format": "ACH",
+      "prior_in_24h": false,
+      "n": 61229,
+      "positive": 343,
+      "positive_rate": 0.00560192065851149
+    },
+    {
+      "split": "validation",
+      "payment_format": "ACH",
+      "prior_in_24h": true,
+      "n": 95147,
+      "positive": 211,
+      "positive_rate": 0.0022176211546344076
+    },
+    {
+      "split": "validation",
+      "payment_format": "Bitcoin",
+      "prior_in_24h": false,
+      "n": 32465,
+      "positive": 15,
+      "positive_rate": 0.00046203603881102723
+    },
+    {
+      "split": "validation",
+      "payment_format": "Bitcoin",
+      "prior_in_24h": true,
+      "n": 27746,
+      "positive": 4,
+      "positive_rate": 0.00014416492467382686
+    },
+    {
+      "split": "validation",
+      "payment_format": "Cash",
+      "prior_in_24h": false,
+      "n": 56434,
+      "positive": 28,
+      "positive_rate": 0.0004961548002976929
+    },
+    {
+      "split": "validation",
+      "payment_format": "Cash",
+      "prior_in_24h": true,
+      "n": 81541,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "split": "validation",
+      "payment_format": "Cheque",
+      "prior_in_24h": false,
+      "n": 224790,
+      "positive": 111,
+      "positive_rate": 0.0004937942079273989
+    },
+    {
+      "split": "validation",
+      "payment_format": "Cheque",
+      "prior_in_24h": true,
+      "n": 307940,
+      "positive": 1,
+      "positive_rate": 3.2473858543872183e-06
+    },
+    {
+      "split": "validation",
+      "payment_format": "Credit Card",
+      "prior_in_24h": false,
+      "n": 179770,
+      "positive": 57,
+      "positive_rate": 0.0003170718139845358
+    },
+    {
+      "split": "validation",
+      "payment_format": "Credit Card",
+      "prior_in_24h": true,
+      "n": 200572,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "split": "validation",
+      "payment_format": "Wire",
+      "prior_in_24h": false,
+      "n": 13700,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "split": "validation",
+      "payment_format": "Wire",
+      "prior_in_24h": true,
+      "n": 35108,
+      "positive": 0,
+      "positive_rate": 0.0
+    }
+  ],
+  "history_buckets": [
+    {
+      "split": "test",
+      "in_24h_bucket": "0",
+      "n": 455549,
+      "positive": 396,
+      "positive_rate": 0.0008692808018456851
+    },
+    {
+      "split": "test",
+      "in_24h_bucket": "1-2",
+      "n": 294804,
+      "positive": 176,
+      "positive_rate": 0.0005970068248734753
+    },
+    {
+      "split": "test",
+      "in_24h_bucket": "11+",
+      "n": 101182,
+      "positive": 140,
+      "positive_rate": 0.0013836453124073452
+    },
+    {
+      "split": "test",
+      "in_24h_bucket": "3-10",
+      "n": 323138,
+      "positive": 90,
+      "positive_rate": 0.0002785187752601056
+    },
+    {
+      "split": "train",
+      "in_24h_bucket": "0",
+      "n": 2237932,
+      "positive": 1178,
+      "positive_rate": 0.0005263788175869508
+    },
+    {
+      "split": "train",
+      "in_24h_bucket": "1-2",
+      "n": 1071295,
+      "positive": 369,
+      "positive_rate": 0.00034444294055325565
+    },
+    {
+      "split": "train",
+      "in_24h_bucket": "11+",
+      "n": 141149,
+      "positive": 182,
+      "positive_rate": 0.0012894175658346853
+    },
+    {
+      "split": "train",
+      "in_24h_bucket": "3-10",
+      "n": 982558,
+      "positive": 264,
+      "positive_rate": 0.00026868642868919696
+    },
+    {
+      "split": "validation",
+      "in_24h_bucket": "0",
+      "n": 568388,
+      "positive": 554,
+      "positive_rate": 0.0009746863058333392
+    },
+    {
+      "split": "validation",
+      "in_24h_bucket": "1-2",
+      "n": 388106,
+      "positive": 117,
+      "positive_rate": 0.0003014640330219064
+    },
+    {
+      "split": "validation",
+      "in_24h_bucket": "11+",
+      "n": 2384,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "split": "validation",
+      "in_24h_bucket": "3-10",
+      "n": 357564,
+      "positive": 99,
+      "positive_rate": 0.0002768735107561164
+    }
+  ],
+  "history_by_external": [
+    {
+      "split": "test",
+      "self_loop": false,
+      "prior_in_24h": false,
+      "n": 444989,
+      "positive": 396,
+      "positive_rate": 0.0008899096382157762
+    },
+    {
+      "split": "test",
+      "self_loop": false,
+      "prior_in_24h": true,
+      "n": 706711,
+      "positive": 405,
+      "positive_rate": 0.0005730772550589986
+    },
+    {
+      "split": "test",
+      "self_loop": true,
+      "prior_in_24h": false,
+      "n": 10560,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "split": "test",
+      "self_loop": true,
+      "prior_in_24h": true,
+      "n": 12413,
+      "positive": 1,
+      "positive_rate": 8.05607024893257e-05
+    },
+    {
+      "split": "train",
+      "self_loop": false,
+      "prior_in_24h": false,
+      "n": 1655793,
+      "positive": 1178,
+      "positive_rate": 0.0007114415872032313
+    },
+    {
+      "split": "train",
+      "self_loop": false,
+      "prior_in_24h": true,
+      "n": 2023010,
+      "positive": 813,
+      "positive_rate": 0.0004018764118813056
+    },
+    {
+      "split": "train",
+      "self_loop": true,
+      "prior_in_24h": false,
+      "n": 582139,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "split": "train",
+      "self_loop": true,
+      "prior_in_24h": true,
+      "n": 171992,
+      "positive": 2,
+      "positive_rate": 1.1628447834783013e-05
+    },
+    {
+      "split": "validation",
+      "self_loop": false,
+      "prior_in_24h": false,
+      "n": 555979,
+      "positive": 554,
+      "positive_rate": 0.00099644051304096
+    },
+    {
+      "split": "validation",
+      "self_loop": false,
+      "prior_in_24h": true,
+      "n": 733090,
+      "positive": 216,
+      "positive_rate": 0.00029464322252383744
+    },
+    {
+      "split": "validation",
+      "self_loop": true,
+      "prior_in_24h": false,
+      "n": 12409,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "split": "validation",
+      "self_loop": true,
+      "prior_in_24h": true,
+      "n": 14964,
+      "positive": 0,
+      "positive_rate": 0.0
+    }
+  ],
+  "prior_pair": [
+    {
+      "split": "test",
+      "prior_pair": false,
+      "n": 47932,
+      "positive": 566,
+      "positive_rate": 0.011808395226570975
+    },
+    {
+      "split": "test",
+      "prior_pair": true,
+      "n": 1126741,
+      "positive": 236,
+      "positive_rate": 0.00020945363663876613
+    },
+    {
+      "split": "train",
+      "prior_pair": false,
+      "n": 1302574,
+      "positive": 1462,
+      "positive_rate": 0.0011223930463835452
+    },
+    {
+      "split": "train",
+      "prior_pair": true,
+      "n": 3130360,
+      "positive": 531,
+      "positive_rate": 0.0001696290522495815
+    },
+    {
+      "split": "validation",
+      "prior_pair": false,
+      "n": 51416,
+      "positive": 505,
+      "positive_rate": 0.009821845339971992
+    },
+    {
+      "split": "validation",
+      "prior_pair": true,
+      "n": 1265026,
+      "positive": 265,
+      "positive_rate": 0.00020948186045188004
+    }
+  ],
+  "same_minute_external_incoming": {
+    "account_minute_groups": 5954014,
+    "groups_with_multiple_transactions": 154228,
+    "transactions_in_tied_groups": 319786
+  },
+  "seen_training": {
+    "both_accounts_seen_train": [
+      {
+        "split": "test",
+        "both_accounts_seen_train": false,
+        "n": 2551,
+        "positive": 36,
+        "positive_rate": 0.014112112896903175
+      },
+      {
+        "split": "test",
+        "both_accounts_seen_train": true,
+        "n": 1172122,
+        "positive": 766,
+        "positive_rate": 0.0006535155896741124
+      },
+      {
+        "split": "train",
+        "both_accounts_seen_train": true,
+        "n": 4432934,
+        "positive": 1993,
+        "positive_rate": 0.0004495893690273756
+      },
+      {
+        "split": "validation",
+        "both_accounts_seen_train": false,
+        "n": 2963,
+        "positive": 20,
+        "positive_rate": 0.006749915626054675
+      },
+      {
+        "split": "validation",
+        "both_accounts_seen_train": true,
+        "n": 1313479,
+        "positive": 750,
+        "positive_rate": 0.000571002657827038
+      }
+    ],
+    "pair_seen_train": [
+      {
+        "split": "test",
+        "pair_seen_train": false,
+        "n": 50733,
+        "positive": 594,
+        "positive_rate": 0.011708355508249068
+      },
+      {
+        "split": "test",
+        "pair_seen_train": true,
+        "n": 1123940,
+        "positive": 208,
+        "positive_rate": 0.00018506325960460521
+      },
+      {
+        "split": "train",
+        "pair_seen_train": true,
+        "n": 4432934,
+        "positive": 1993,
+        "positive_rate": 0.0004495893690273756
+      },
+      {
+        "split": "validation",
+        "pair_seen_train": false,
+        "n": 52144,
+        "positive": 512,
+        "positive_rate": 0.00981896287204664
+      },
+      {
+        "split": "validation",
+        "pair_seen_train": true,
+        "n": 1264298,
+        "positive": 258,
+        "positive_rate": 0.00020406581359774356
+      }
+    ]
+  }
+}

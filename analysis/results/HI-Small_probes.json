@@ -1,0 +1,173 @@
+{
+  "dataset": "HI-Small",
+  "method": "train-only frequency tables; shrinkage to payment-format rate with 1000 pseudo-observations; validation AP with tied scores grouped",
+  "probes": [
+    {
+      "keys": [
+        "payment_format"
+      ],
+      "smoothing_strength": 1000,
+      "train_cells": 7,
+      "validation_AP": 0.006842265204234754,
+      "validation_n": 965524,
+      "validation_positive": 1036
+    },
+    {
+      "keys": [
+        "payment_format",
+        "prior_pair"
+      ],
+      "smoothing_strength": 1000,
+      "train_cells": 14,
+      "validation_AP": 0.031777913843566936,
+      "validation_n": 965524,
+      "validation_positive": 1036
+    },
+    {
+      "keys": [
+        "payment_format",
+        "pair_bin"
+      ],
+      "smoothing_strength": 1000,
+      "train_cells": 34,
+      "validation_AP": 0.033469126808144914,
+      "validation_n": 965524,
+      "validation_positive": 1036
+    },
+    {
+      "keys": [
+        "payment_format",
+        "in_1h"
+      ],
+      "smoothing_strength": 1000,
+      "train_cells": 14,
+      "validation_AP": 0.006843136805086591,
+      "validation_n": 965524,
+      "validation_positive": 1036
+    },
+    {
+      "keys": [
+        "payment_format",
+        "in_24h_bin"
+      ],
+      "smoothing_strength": 1000,
+      "train_cells": 34,
+      "validation_AP": 0.007309916789337966,
+      "validation_n": 965524,
+      "validation_positive": 1036
+    },
+    {
+      "keys": [
+        "payment_format",
+        "pair_bin",
+        "in_24h_bin",
+        "out_24h_bin"
+      ],
+      "smoothing_strength": 1000,
+      "train_cells": 560,
+      "validation_AP": 0.0629884353003045,
+      "validation_n": 965524,
+      "validation_positive": 1036
+    }
+  ],
+  "train_prior_pair_by_format": [
+    {
+      "payment_format": "ACH",
+      "prior_pair": false,
+      "n": 125180,
+      "positive": 1952,
+      "positive_rate": 0.015593545294775524
+    },
+    {
+      "payment_format": "ACH",
+      "prior_pair": true,
+      "n": 238404,
+      "positive": 152,
+      "positive_rate": 0.0006375731950806194
+    },
+    {
+      "payment_format": "Bitcoin",
+      "prior_pair": false,
+      "n": 25021,
+      "positive": 19,
+      "positive_rate": 0.000759362135805923
+    },
+    {
+      "payment_format": "Bitcoin",
+      "prior_pair": true,
+      "n": 68098,
+      "positive": 15,
+      "positive_rate": 0.00022027078621985962
+    },
+    {
+      "payment_format": "Cash",
+      "prior_pair": false,
+      "n": 43846,
+      "positive": 13,
+      "positive_rate": 0.0002964922683939242
+    },
+    {
+      "payment_format": "Cash",
+      "prior_pair": true,
+      "n": 251951,
+      "positive": 51,
+      "positive_rate": 0.00020242031188604133
+    },
+    {
+      "payment_format": "Cheque",
+      "prior_pair": false,
+      "n": 218983,
+      "positive": 44,
+      "positive_rate": 0.00020092883922496267
+    },
+    {
+      "payment_format": "Cheque",
+      "prior_pair": true,
+      "n": 901232,
+      "positive": 161,
+      "positive_rate": 0.00017864434463046142
+    },
+    {
+      "payment_format": "Credit Card",
+      "prior_pair": false,
+      "n": 173190,
+      "positive": 17,
+      "positive_rate": 9.815809226860673e-05
+    },
+    {
+      "payment_format": "Credit Card",
+      "prior_pair": true,
+      "n": 617070,
+      "positive": 106,
+      "positive_rate": 0.00017177953878814398
+    },
+    {
+      "payment_format": "Reinvestment",
+      "prior_pair": false,
+      "n": 354262,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_format": "Reinvestment",
+      "prior_pair": true,
+      "n": 126794,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_format": "Wire",
+      "prior_pair": false,
+      "n": 12334,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_format": "Wire",
+      "prior_pair": true,
+      "n": 92556,
+      "positive": 0,
+      "positive_rate": 0.0
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+# Local transaction datasets (kept outside version control)
+HI-Small_Trans.csv
+LI-Small_Trans.csv
+
+# Generated analysis datasets
+analysis/results/*.parquet

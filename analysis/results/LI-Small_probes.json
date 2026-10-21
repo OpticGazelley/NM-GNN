@@ -1,0 +1,173 @@
+{
+  "dataset": "LI-Small",
+  "method": "train-only frequency tables; shrinkage to payment-format rate with 1000 pseudo-observations; validation AP with tied scores grouped",
+  "probes": [
+    {
+      "keys": [
+        "payment_format"
+      ],
+      "smoothing_strength": 1000,
+      "train_cells": 7,
+      "validation_AP": 0.0028377019321232785,
+      "validation_n": 1316442,
+      "validation_positive": 770
+    },
+    {
+      "keys": [
+        "payment_format",
+        "prior_pair"
+      ],
+      "smoothing_strength": 1000,
+      "train_cells": 14,
+      "validation_AP": 0.0122372831922473,
+      "validation_n": 1316442,
+      "validation_positive": 770
+    },
+    {
+      "keys": [
+        "payment_format",
+        "pair_bin"
+      ],
+      "smoothing_strength": 1000,
+      "train_cells": 34,
+      "validation_AP": 0.013436983782126072,
+      "validation_n": 1316442,
+      "validation_positive": 770
+    },
+    {
+      "keys": [
+        "payment_format",
+        "in_1h"
+      ],
+      "smoothing_strength": 1000,
+      "train_cells": 14,
+      "validation_AP": 0.002867328813658299,
+      "validation_n": 1316442,
+      "validation_positive": 770
+    },
+    {
+      "keys": [
+        "payment_format",
+        "in_24h_bin"
+      ],
+      "smoothing_strength": 1000,
+      "train_cells": 34,
+      "validation_AP": 0.004001578449190989,
+      "validation_n": 1316442,
+      "validation_positive": 770
+    },
+    {
+      "keys": [
+        "payment_format",
+        "pair_bin",
+        "in_24h_bin",
+        "out_24h_bin"
+      ],
+      "smoothing_strength": 1000,
+      "train_cells": 572,
+      "validation_AP": 0.023625721044715994,
+      "validation_n": 1316442,
+      "validation_positive": 770
+    }
+  ],
+  "train_prior_pair_by_format": [
+    {
+      "payment_format": "ACH",
+      "prior_pair": false,
+      "n": 164520,
+      "positive": 1330,
+      "positive_rate": 0.008084123510819352
+    },
+    {
+      "payment_format": "ACH",
+      "prior_pair": true,
+      "n": 318326,
+      "positive": 92,
+      "positive_rate": 0.0002890118934677029
+    },
+    {
+      "payment_format": "Bitcoin",
+      "prior_pair": false,
+      "n": 53276,
+      "positive": 48,
+      "positive_rate": 0.0009009685411817704
+    },
+    {
+      "payment_format": "Bitcoin",
+      "prior_pair": true,
+      "n": 144069,
+      "positive": 23,
+      "positive_rate": 0.0001596457253121768
+    },
+    {
+      "payment_format": "Cash",
+      "prior_pair": false,
+      "n": 58859,
+      "positive": 10,
+      "positive_rate": 0.0001698975517762789
+    },
+    {
+      "payment_format": "Cash",
+      "prior_pair": true,
+      "n": 336285,
+      "positive": 70,
+      "positive_rate": 0.00020815677178583642
+    },
+    {
+      "payment_format": "Cheque",
+      "prior_pair": false,
+      "n": 295205,
+      "positive": 60,
+      "positive_rate": 0.00020324858996290714
+    },
+    {
+      "payment_format": "Cheque",
+      "prior_pair": true,
+      "n": 1209048,
+      "positive": 201,
+      "positive_rate": 0.00016624650137959783
+    },
+    {
+      "payment_format": "Credit Card",
+      "prior_pair": false,
+      "n": 234999,
+      "positive": 14,
+      "positive_rate": 5.957472159455998e-05
+    },
+    {
+      "payment_format": "Credit Card",
+      "prior_pair": true,
+      "n": 828305,
+      "positive": 145,
+      "positive_rate": 0.0001750562896517587
+    },
+    {
+      "payment_format": "Reinvestment",
+      "prior_pair": false,
+      "n": 479046,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_format": "Reinvestment",
+      "prior_pair": true,
+      "n": 171412,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_format": "Wire",
+      "prior_pair": false,
+      "n": 16669,
+      "positive": 0,
+      "positive_rate": 0.0
+    },
+    {
+      "payment_format": "Wire",
+      "prior_pair": true,
+      "n": 122915,
+      "positive": 0,
+      "positive_rate": 0.0
+    }
+  ]
+}
