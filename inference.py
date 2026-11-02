@@ -2,6 +2,7 @@ import torch
 import pandas as pd
 from train_util import AddEgoIds, extract_param, add_arange_ids, get_loaders, evaluate_homo, evaluate_hetero, get_aml_feature_config, _normalize_aml_feature_config
 from training import get_model
+from util import validate_aml_architecture_checkpoint
 from torch_geometric.data import HeteroData
 import wandb
 import logging
@@ -13,7 +14,7 @@ script_start = time.time()
 
 def infer_gnn(tr_data, val_data, te_data, tr_inds, val_inds, te_inds, args, data_config):
     #set device
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    device = torch.device(args.device if torch.cuda.is_available() else "cpu")
 
     #define a model config dictionary and wandb logging at the same time
     wandb.init(
@@ -67,7 +68,9 @@ def infer_gnn(tr_data, val_data, te_data, tr_inds, val_inds, te_inds, args, data
         args.unique_name = name
 
     logging.info("=> loading model checkpoint")
-    checkpoint = torch.load(f'{data_config["paths"]["model_to_load"]}/checkpoint_{args.unique_name}.tar')
+    checkpoint_path = os.environ.get('MEGAGNN_CHECKPOINT') or f'{data_config["paths"]["model_to_load"]}/checkpoint_{args.unique_name}.tar'
+    checkpoint = torch.load(checkpoint_path, map_location='cpu', weights_only=True)
+    validate_aml_architecture_checkpoint(checkpoint, args)
     start_epoch = checkpoint['epoch']
     decision_threshold = checkpoint.get('decision_threshold', 0.5)
     saved_feature_config = checkpoint.get('aml_feature_config')
@@ -82,6 +85,13 @@ def infer_gnn(tr_data, val_data, te_data, tr_inds, val_inds, te_inds, args, data
     model.to(device)
 
     logging.info("=> loaded checkpoint (epoch {})".format(start_epoch))
+
+    from full_evaluation import AML_DATASETS
+    if args.data in AML_DATASETS:
+        evaluate = evaluate_hetero if args.reverse_mp else evaluate_homo
+        val_metrics = evaluate(val_loader, val_inds, model, val_data, device, args, threshold=None)
+        decision_threshold = val_metrics[-1]
+        logging.info('Complete-validation-selected threshold: %.6f', decision_threshold)
 
     if not args.reverse_mp:
         te_f1, te_pr_auc, te_ap, te_prec, te_rec, te_groups, _ = evaluate_homo(te_loader, te_inds, model, te_data, device, args, decision_threshold)

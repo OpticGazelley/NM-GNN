@@ -4,3 +4,4 @@ LI-Small_Trans.csv
 
 # Generated analysis datasets
 analysis/results/*.parquet
+/data/Small_HI/formatted_transactions.csv

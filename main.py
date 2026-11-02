@@ -1,6 +1,6 @@
 import time
 import logging
-from util import create_parser, set_seed, logger_setup
+from util import create_parser, set_seed, logger_setup, validate_aml_architecture_args
 from data_loading import get_data, get_eth_data, get_eth_kaggle_data
 from training import train_gnn
 from training_eth import train_gnn_eth
@@ -14,6 +14,10 @@ import os
 def main():
     parser = create_parser()
     args = parser.parse_args()
+    try:
+        validate_aml_architecture_args(args)
+    except ValueError as exc:
+        parser.error(str(exc))
 
     args.num_neighs = [int(t) for t in args.num_neighs]
 
@@ -28,7 +32,7 @@ def main():
         assert args.data in ['Small_HI', 'Small_LI', 'Medium_HI', 'Medium_LI']
     elif args.task == 'node_class':
         assert args.data in ['ETH', 'ETH-Kaggle']
-    if args.aml_enhanced_features or args.aml_semantic_features or args.aml_transaction_indicators or args.aml_categorical_features or args.aml_history_features or args.aml_history_gaps:
+    if args.aml_enhanced_features or args.aml_semantic_features or args.aml_transaction_indicators or args.aml_categorical_features or args.aml_history_features or args.aml_history_gaps or args.aml_dual_endpoint_update or args.aml_conditioned_edge_agg:
         assert args.task == 'edge_class'
         assert args.data in ['Small_HI', 'Small_LI', 'Medium_HI', 'Medium_LI']
     if args.aml_history_gaps:
@@ -60,6 +64,10 @@ def main():
         name += " AMLHist"
     if args.aml_history_gaps or args.aml_enhanced_features:
         name += " AMLGaps"
+    if args.aml_dual_endpoint_update:
+        name += " DualEndpoint"
+    if args.aml_conditioned_edge_agg:
+        name += " ConditionedEdgeAgg"
     
     if args.adamm_hetero:
         name+="adam-hetero"
@@ -85,7 +93,9 @@ def main():
             "w_ce2": extract_param("w_ce2", args),
             "dropout": extract_param("dropout", args),
             "final_dropout": extract_param("final_dropout", args),
-            "n_heads": extract_param("n_heads", args) if args.model == 'gat' else None
+            "n_heads": extract_param("n_heads", args) if args.model == 'gat' else None,
+            "aml_dual_endpoint_update": args.aml_dual_endpoint_update,
+            "aml_conditioned_edge_agg": args.aml_conditioned_edge_agg,
         }
     )
 

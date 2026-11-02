@@ -94,6 +94,245 @@ history, 2022-09-09 to 2022-09-10, and the 2022-09-11+ tail. The validation
 split selects both the checkpoint and F1 threshold; the test split reuses that
 threshold once after training.
 
+### AML multi-edge architecture ablations
+
+The structural variants use the same B2 transaction inputs. Both switches require
+AML edge classification, `--flatten_edges`, `--emlps`, and `--edge_agg_type gin`
+or `sum`. Conditioned aggregation also requires `--aml_categorical_features`.
+
+`--aml_dual_endpoint_update` adds the receiver state at every layer. Its edge
+update uses `[sender, receiver, pair_context, current_edge]`; the S0 update keeps
+`[sender, pair_context, current_edge]`.
+
+`--aml_conditioned_edge_agg` keeps the original sum-based account-pair aggregate
+for node message passing. It also aggregates transactions by payment format
+within each pair, using the same aggregation weights. Each transaction queries
+all non-empty payment groups of its pair with learned query/key projections.
+Masked softmax selects their context; a feature-wise sigmoid gate interpolates
+between this selection and the original pair context for the edge update.
+This includes formats different from the query transaction. Single-format pairs
+and singleton edges reduce to the original pair context. Missing groups are
+masked, and empty relations are supported. Weighted embedding bags avoid storing
+an `[edges, payment_formats, hidden]` value tensor. The inputs come from the
+sampled graph; this is not a temporally causal sampler or a full-history model.
+
+The optimized implementation skips attention and gating for single-format
+pairs, where the selected context is exactly the pair context. It preserves
+zero parameter gradients in all-single-format batches to retain Adam momentum
+behavior. For mixed-format pairs, masked slots reference each transaction's own
+group with zero attention weight, instead of sharing one padding row across all
+transactions. Output and gradient equivalence are tested against the previous
+version-2 forward. Parameter names and architecture metadata are unchanged;
+version-2 S2/S3 checkpoints remain compatible. Floating-point reduction order
+can still cause small numerical differences.
+
+| Run | Extra switches on the B2 inputs |
+| --- | --- |
+| S0 | None |
+| S1 | `--aml_dual_endpoint_update` |
+| S2 | `--aml_conditioned_edge_agg` |
+| S3 | Both |
+
+Keep `gin.params.lr` in `model_settings.json` at `0.0003` for the existing
+comparison (the repository default is higher). Use identical epochs, batches,
+neighbors, and seeds across S0-S3. Set a separate `model_to_save` directory for
+each run in `data_config.json` before launching it.
+
+```bash
+export PYTHONPATH="$PWD/genagg:${PYTHONPATH:-}"
+common=(--data Small_HI --model gin --task edge_class
+        --emlps --reverse_mp --ego --flatten_edges --edge_agg_type gin
+        --aml_semantic_features --aml_categorical_features
+        --n_epochs 100 --batch_size 1024 --num_neighs 20 20
+        --device cuda:3 --seed 42 --save_model --testing)
+
+# Run one variant at a time with its own checkpoint directory.
+# S0: B2 architecture baseline
+python -u main.py "${common[@]}"
+
+# S1: B2 + dual-endpoint individual-edge update
+python -u main.py "${common[@]}" --aml_dual_endpoint_update
+
+# S2: B2 + payment-format-conditioned multi-edge context
+python -u main.py "${common[@]}" --aml_conditioned_edge_agg
+
+# S3: B2 + both structural modules
+python -u main.py "${common[@]}" --aml_dual_endpoint_update --aml_conditioned_edge_agg
+```
+
+Checkpoints record `aml_architecture_config`, including the conditioned context
+implementation version. Inference and fine-tuning reject a mismatched variant.
+Old B2 checkpoints without this metadata remain supported when both switches
+are off. Retrain structural variants saved before this check; the earlier
+same-format-only gate is not the current S2/S3 implementation. Select a checkpoint
+with `MEGAGNN_CHECKPOINT` and pass the same switches used for training.
+
+Run the small-graph regression suite in the existing PyTorch/PyG environment:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python tests/test_aml_architecture.py
+```
+
+The tests cover CPU/CUDA forward and backward passes, all four ablations,
+independently sampled reverse relations, query-dependent group selection,
+permutation invariance, pair isolation, singleton/empty inputs, checkpoint
+roundtrips, and invalid arguments. CUDA tests skip automatically without a GPU.
+
+To compare the original and optimized S2 aggregation on synthetic graphs using
+only an allocated GPU, run (this is not an end-to-end epoch benchmark):
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python tests/benchmark_conditioned_aggregation.py \
+  --device cuda:3 --edges 20000 --repeats 7
+```
+
+The benchmark reports median forward/backward time and additional peak allocated
+memory for several mixed-payment pair fractions. Speedups depend on sampled
+graph composition and hardware. An optimized training job can still show 100%
+GPU utilization; this implementation does not impose a utilization or power cap.
+
+Example local run (2026-10-22, WSL, PyTorch 2.7.0+cu128, RTX 5060 Laptop,
+20,000 synthetic edges, 64 hidden channels, 7 payment formats, 7 timed repeats):
+
+| Mixed-format pair fraction | Original / optimized step (ms) | Original / optimized extra peak (MiB) |
+| --- | --- | --- |
+| 0% | 270.142 / 43.284 | 74.20 / 28.31 |
+| 10% | 237.346 / 60.915 | 76.70 / 38.83 |
+| 50% | 212.155 / 68.115 | 81.95 / 63.19 |
+| 100% | 183.403 / 88.004 | 87.14 / 86.50 |
+
+These synchronized wall times include kernel launch and host overhead. Timing
+varied across local runs; they are not forecasts for an RTX 5090 or the complete
+training pipeline. Measure actual epoch times on the allocated training GPU.
+
+### Selected-GPU distributed training
+
+`train_multi_gpu.py` starts a single model with PyTorch DDP on the GPUs selected
+by `--gpus`. It supports fresh IBM AML GIN edge-classification runs, including
+B0-B4 and S0-S3, with sum node aggregation and gin/sum parallel-edge aggregation.
+The existing `main.py` entry remains the single-GPU training/inference entry.
+
+```bash
+conda activate mega
+cd ~/workspace/stu/zhangyuxiang/MEGA-GNN-main
+export PYTHONPATH="$PWD/genagg:${PYTHONPATH:-}"
+
+# One S2 model on GPU 0 and GPU 2, global batch 1024 (512 per GPU).
+python -u train_multi_gpu.py --gpus 0 2 \
+  --data Small_HI --model gin --task edge_class \
+  --emlps --reverse_mp --ego --flatten_edges --edge_agg_type gin \
+  --aml_semantic_features --aml_categorical_features --aml_conditioned_edge_agg \
+  --batch_size 1024 --num_neighs 20 20 --n_epochs 100 --seed 42 \
+  --lr 0.0003 --testing --save_model \
+  --checkpoint_dir checkpoints --run_name S2_ddp02_seed42
+```
+
+`--gpus 0,2` is also accepted; `--gpus 0 1 2 3` uses four GPUs. Do not pass
+`--device` to this launcher. If `CUDA_VISIBLE_DEVICES` is already set by a
+scheduler/container, indices refer to that visible list, and the launcher
+selects a subset without expanding it. Startup prints the mapping. The default
+data path file is `data_config.json`; `--data_config another.json` overrides it.
+`--lr` overrides the model setting for this run without editing shared JSON.
+For S1 replace the conditioned switch with `--aml_dual_endpoint_update`; for S3
+enable both. Use a different `--run_name` for every experiment. Existing run
+directories are rejected to prevent checkpoint overwrites.
+
+Only rank zero writes logs and checkpoints. The run directory contains
+`training.log`, `run_config.json`, `results.json` after completion, and
+`epoch_*.tar` when `--save_model` is enabled. Checkpoints have no `module.` prefix
+and can be evaluated using `main.py --inference` and `MEGAGNN_CHECKPOINT` with the
+same model/feature switches. Multi-GPU inference and resuming optimizer/epoch
+state are not implemented by this launcher.
+
+`--batch_size` is the global batch, not the batch per GPU. Each shuffled global
+batch is split without duplicating real training seeds; a rank with no seeds in
+the final step uses a dummy forward whose loss and metrics are excluded. Uneven
+splits (e.g. 1024 over three GPUs) are allowed. Weighted cross entropy uses the
+global sum of class weights, rather than averaging independently normalized
+per-rank losses. Validation/test predictions are gathered to rank zero to
+compute global F1/AP and select one validation threshold. The best model and
+threshold are applied once to the test set after training. As in the existing
+pipeline, only seed edges found in the sampled graph are scored; logs report
+scored/requested edge counts so sampling coverage remains visible.
+
+Each worker keeps its own CPU graph and sampling state: host RAM requirements
+grow with GPU count. The history cache is built by rank zero first to avoid
+concurrent cache writes. Model BatchNorm remains local per worker; rank zero's
+running statistics are broadcast for evaluation and saved in checkpoints.
+One-node training batches use the existing running statistics instead of failing
+BatchNorm's minimum-batch-size check.
+Neighbor samples and dropout also differ from single-GPU training. Matching the
+global batch and learning rate does not imply identical single-/multi-GPU runs;
+compare ablations using the same GPU count and protocol. DDP does not impose a
+GPU utilization cap and does not guarantee a speedup on shared GPUs.
+
+Validation commands in the project environment:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python tests/test_distributed_training.py
+```
+
+The suite checks GPU mapping, global batches and dummy tails, two-process Gloo
+training on CPU, weighted-gradient equivalence, empty evaluation shards,
+checkpoint loading, and a one-GPU NCCL/torchrun run on synthetic AML data.
+One-GPU CUDA tests skip automatically when CUDA/NCCL is unavailable. A successful
+local suite does not substitute for an actual multi-GPU NCCL test on the server.
+
+Local verification on 2026-10-22 passed the two-rank CPU/Gloo tests and the
+one-GPU NCCL/launcher tests. The local WSL NCCL default setup timed out; the GPU
+tests passed with `NCCL_CUMEM_HOST_ENABLE=0`, `NCCL_CUMEM_ENABLE=0`,
+`NCCL_P2P_DISABLE=1`, and `NCCL_IB_DISABLE=1` explicitly set for testing. The
+launcher does not force these transport settings on a Linux server. Start with
+`--n_epochs 1 --run_name S2_ddp02_check` on the selected server GPUs, then use a
+new run name for the full experiment after confirming startup and saved results.
+
+Preprocessing barriers, graph/config object broadcasts, and prediction gathering
+now use a separate CPU/Gloo group; gradient and model-tensor synchronization
+still use NCCL. This avoids placing a GPU wait kernel in a preprocessing barrier
+while other ranks load the dataset. NCCL initialization explicitly binds each
+worker to its local CUDA device. Each rank prints its PID/device and startup
+phase so failures before `Epoch 0` can be distinguished from model execution.
+
+If startup reports CUDA illegal memory access, that run has failed; the reported
+GPU utilization alone does not identify the cause. First test communication in
+new processes without loading AML data or creating a checkpoint directory:
+
+```bash
+python -u train_multi_gpu.py --gpus 0 1 2 --nccl_compat \
+  --data Small_HI --model gin --check_distributed
+```
+
+Every rank must print `DISTRIBUTED CHECK PASSED` and the command must exit
+successfully. The optional `--nccl_compat` applies the four transport environment
+settings above only to the launched job; it is a diagnostic fallback, not a
+guaranteed fix or a server-wide change. If the check passes, use the same GPUs
+and compatibility flag for a one-epoch run with a new run name. If it fails,
+investigate the CUDA/NCCL/driver/topology environment before loading the full
+dataset. Passing the communication check does not validate all GNN kernels.
+
+If the linear communication check passes but the real run fails before `Epoch 0`,
+test the selected GNN's initialization and three optimizer steps without loading
+the AML CSV:
+
+```bash
+CUDA_LAUNCH_BLOCKING=1 python -u train_multi_gpu.py --gpus 0 1 2 --nccl_compat \
+  --data Small_HI --model gin --task edge_class \
+  --emlps --reverse_mp --ego --flatten_edges --edge_agg_type gin \
+  --aml_semantic_features --aml_categorical_features --aml_conditioned_edge_agg \
+  --lr 0.0003 --seed 42 --check_model_distributed
+```
+
+This uses the configured hidden width/layer count and selected S0-S3 modules,
+on a synthetic graph with 16 nodes, 64 edges, and category cardinalities
+`[16, 16, 7]`. It does not reproduce the size or exact category counts of the
+real dataset and does not support port/time-delta features. Every rank should
+print `MODEL DDP CHECK PASSED`. Startup also verifies model state layout and
+trainable parameter names across ranks before CUDA transfer, and prints stages
+for CPU model construction, CUDA transfer, and DDP construction. The diagnostic
+prints forward/backward/update stages and synchronizes CUDA at each boundary.
+Use the last completed stage and full error output to narrow the cause rather
+than attributing every NCCL watchdog report to the communication library.
+
 ## Citation
 If you use our work in your research, please cite our paper:
 

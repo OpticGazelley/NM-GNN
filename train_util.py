@@ -11,6 +11,7 @@ from data_util import assign_ports_with_cpp, create_hetero_obj
 import numpy as np
 import sklearn.metrics
 import negative_sampling
+from util import get_aml_architecture_config, validate_aml_architecture_checkpoint
 
 class AddEgoIds(BaseTransform):
     r"""Add IDs to the centre nodes of the batch.
@@ -106,6 +107,9 @@ def get_loaders(tr_data, val_data, te_data, tr_inds, val_inds, te_inds, transfor
 
 @torch.no_grad()
 def evaluate_homo(loader, inds, model, data, device, args, threshold=None):
+    from full_evaluation import AML_DATASETS, evaluate_complete_legacy
+    if args.data in AML_DATASETS:
+        return evaluate_complete_legacy(loader, inds, model, data, device, args, threshold)
     model.eval()
     assert not model.training, "Test error: Model is not in evaluation mode"
     '''Evaluates the model performane for homogenous graph data.'''
@@ -177,6 +181,9 @@ def evaluate_homo(loader, inds, model, data, device, args, threshold=None):
 
 @torch.no_grad()
 def evaluate_hetero(loader, inds, model, data, device, args, threshold=None):
+    from full_evaluation import AML_DATASETS, evaluate_complete_legacy
+    if args.data in AML_DATASETS:
+        return evaluate_complete_legacy(loader, inds, model, data, device, args, threshold)
     '''Evaluates the model performane for heterogenous graph data.'''
     model.eval()
     assert not model.training, "Test error: Model is not in evaluation mode"
@@ -443,12 +450,15 @@ def save_model(model, optimizer, epoch, args, data_config, decision_threshold=0.
                 'optimizer_state_dict': optimizer.state_dict(),
                 'decision_threshold': float(decision_threshold),
                 'aml_feature_config': get_aml_feature_config(args),
+                'aml_architecture_config': get_aml_architecture_config(args),
                 }, 
                 os.path.join(f'{data_config["paths"]["model_to_save"]}', args.unique_name, f'epoch_{epoch+1}.tar')
             )
     
 def load_model(model, device, args, config, data_config):
-    checkpoint = torch.load(f'{data_config["paths"]["model_to_load"]}/checkpoint_{args.unique_name}.tar')
+    checkpoint_path = os.environ.get('MEGAGNN_CHECKPOINT') or f'{data_config["paths"]["model_to_load"]}/checkpoint_{args.unique_name}.tar'
+    checkpoint = torch.load(checkpoint_path, map_location='cpu', weights_only=True)
+    validate_aml_architecture_checkpoint(checkpoint, args)
     saved_feature_config = checkpoint.get('aml_feature_config')
     if saved_feature_config is not None:
         saved_feature_config = _normalize_aml_feature_config(saved_feature_config)

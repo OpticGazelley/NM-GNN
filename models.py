@@ -263,9 +263,18 @@ class SumAgg(nn.Module):
                 nn.init.xavier_uniform_(p)
 
 class MultiEdgeAggModule(nn.Module):
-    def __init__(self, n_hidden=None, agg_type=None, index=None):
+    def __init__(self, n_hidden=None, agg_type=None, index=None,
+                 conditioned_by_payment=False, num_payment_formats=None):
         super().__init__()
         self.agg_type = agg_type
+        self.conditioned_by_payment = conditioned_by_payment
+        self.num_payment_formats = num_payment_formats
+
+        if self.conditioned_by_payment:
+            if agg_type not in ('gin', 'sum'):
+                raise ValueError('Payment-conditioned aggregation supports gin or sum')
+            if not isinstance(num_payment_formats, int) or num_payment_formats <= 0:
+                raise ValueError('Payment-conditioned aggregation requires a positive payment-format cardinality')
 
         if agg_type == 'genagg':
             self.agg = GenAgg(f=MLPAutoencoder, jit=False)
@@ -286,8 +295,17 @@ class MultiEdgeAggModule(nn.Module):
             self.agg = AdammAgg(n_hidden)
         else:
             self.agg = IdentityAgg()
+
+        if self.conditioned_by_payment:
+            self.attention_dim = max(1, n_hidden // 4)
+            self.context_query = nn.Linear(n_hidden, self.attention_dim, bias=False)
+            self.context_key = nn.Linear(n_hidden, self.attention_dim, bias=False)
+            self.context_gate = nn.Sequential(
+                nn.Linear(3 * n_hidden, n_hidden),
+                nn.Sigmoid(),
+            )
         
-    def forward(self, edge_index, edge_attr, simp_edge_batch, times):
+    def forward(self, edge_index, edge_attr, simp_edge_batch, times, edge_cat=None):
         _, inverse_indices = torch.unique(simp_edge_batch, return_inverse=True)
         new_edge_index = scatter(edge_index, inverse_indices, dim=1, reduce='mean') if self.agg_type is not None else edge_index
 
@@ -295,10 +313,77 @@ class MultiEdgeAggModule(nn.Module):
             new_edge_attr = self.agg(x= edge_attr, index=inverse_indices, timestamps_=times)
         else:
             new_edge_attr = self.agg(x=edge_attr, index=inverse_indices)
-        return new_edge_index, new_edge_attr, inverse_indices
+
+        if not self.conditioned_by_payment:
+            return new_edge_index, new_edge_attr, inverse_indices
+
+        if edge_cat is None:
+            raise ValueError('Payment-conditioned edge aggregation requires edge_cat')
+        if edge_cat.dim() != 2 or edge_cat.size(1) != 3 or edge_cat.size(0) != edge_attr.size(0):
+            raise ValueError('edge_cat must have one row per edge and three categorical columns')
+        if edge_attr.size(0) == 0:
+            return new_edge_index, new_edge_attr, inverse_indices, edge_attr
+
+        payment_format = edge_cat[:, 2].long()
+        pair_payment_ids = inverse_indices * self.num_payment_formats + payment_format
+        group_ids, payment_inverse_indices = torch.unique(pair_payment_ids, return_inverse=True)
+        pair_context = torch.index_select(new_edge_attr, 0, inverse_indices)
+
+        # For single-format pairs the two contexts are identical, including their
+        # gradients. Only mixed-format pairs need the attention and gate branch.
+        pair_group_counts = torch.bincount(
+            group_ids // self.num_payment_formats, minlength=new_edge_attr.size(0)
+        )
+        mixed_edges = (pair_group_counts[inverse_indices] > 1).nonzero(as_tuple=True)[0]
+        if mixed_edges.numel() == 0:
+            # Keep zero gradients (rather than None) so Adam still applies the
+            # same momentum update after a previous mixed-format batch.
+            zero = sum(p.reshape(-1)[0] * 0 for module in (
+                self.context_query, self.context_key, self.context_gate
+            ) for p in module.parameters())
+            return new_edge_index, new_edge_attr, inverse_indices, pair_context + zero
+
+        payment_edge_attr = self.agg(x=edge_attr, index=payment_inverse_indices)
+        all_mixed = mixed_edges.numel() == edge_attr.size(0)
+        mixed_attr = edge_attr if all_mixed else edge_attr.index_select(0, mixed_edges)
+        mixed_pair_context = pair_context if all_mixed else pair_context.index_select(0, mixed_edges)
+        # Each transaction queries all non-empty payment groups of its own pair.
+        num_groups = payment_edge_attr.size(0)
+        group_lookup = inverse_indices.new_full(
+            (new_edge_attr.size(0) * self.num_payment_formats,), num_groups
+        )
+        group_lookup[group_ids] = torch.arange(num_groups, device=edge_attr.device)
+        group_lookup = group_lookup.view(-1, self.num_payment_formats)
+        candidate_groups = group_lookup.index_select(0, inverse_indices[mixed_edges])
+        missing_groups = candidate_groups == num_groups
+        # Masked weights stay zero. Use each transaction's own group as padding
+        # instead of sending all missing slots through one shared gradient row.
+        candidate_groups = torch.where(
+            missing_groups, payment_inverse_indices[mixed_edges].unsqueeze(1), candidate_groups
+        )
+        group_values = payment_edge_attr
+        keys = self.context_key(group_values)[candidate_groups]
+        query = self.context_query(mixed_attr).unsqueeze(1)
+        scores = (query * keys).sum(dim=-1) / math.sqrt(self.attention_dim)
+        scores = scores.masked_fill(missing_groups, float('-inf'))
+        weights = torch.softmax(scores, dim=1)
+        # Weighted group sums without materializing an [edges, formats, hidden] tensor.
+        selected_context = F.embedding_bag(
+            candidate_groups, group_values, mode='sum', per_sample_weights=weights
+        )
+        gate = self.context_gate(torch.cat([mixed_attr, mixed_pair_context, selected_context], dim=-1))
+        mixed_context = mixed_pair_context + gate * (selected_context - mixed_pair_context)
+        conditioned_context = mixed_context if all_mixed else pair_context.index_copy(0, mixed_edges, mixed_context)
+        return new_edge_index, new_edge_attr, inverse_indices, conditioned_context
     
     def reset_parameters(self):
         self.agg.reset_parameters()
+        if self.conditioned_by_payment:
+            self.context_query.reset_parameters()
+            self.context_key.reset_parameters()
+            for module in self.context_gate:
+                if hasattr(module, 'reset_parameters'):
+                    module.reset_parameters()
 
 class MultiMPNN(torch.nn.Module):
     def __init__(self, num_features, num_gnn_layers, n_classes=2, n_hidden=100, 
@@ -337,7 +422,13 @@ class MultiMPNN(torch.nn.Module):
                              index_=index_, deg=deg, args=args)
         
         if args.reverse_mp or args.reverse_mp_lp:
-            self.gnn  = to_hetero(self.gnn, metadata= (['node'], [('node', 'to', 'node'), ('node', 'rev_to', 'node')]), aggr='mean')
+            self.gnn = to_hetero(
+                self.gnn,
+                metadata=(['node'], [('node', 'to', 'node'), ('node', 'rev_to', 'node')]),
+                aggr='mean',
+                input_map={'x': 'node', 'edge_index': 'edge', 'edge_attr': 'edge',
+                           'simp_edge_batch': 'edge', 'edge_cat': 'edge'},
+            )
 
         if args.task == 'edge_class':
             readout_dim = n_hidden * (4 if self.use_aml_history else 3)
@@ -366,9 +457,22 @@ class MultiMPNN(torch.nn.Module):
                     ("node", 'rev_to', 'node'): reverse_attr,
                 }
             simp_edge_batch_dict = data.simp_edge_batch_dict if self.args.flatten_edges else None
+            edge_cat_dict = None
+            if getattr(self.args, 'aml_conditioned_edge_agg', False):
+                edge_cat_dict = {
+                    ("node", 'to', 'node'): forward_edge.edge_cat,
+                    ("node", 'rev_to', 'node'): reverse_edge.edge_cat,
+                }
 
             # Message Passing Layers
-            x_dict, edge_attr_dict = self.gnn(x_dict, data.edge_index_dict, edge_attr_dict, simp_edge_batch_dict)
+            if edge_cat_dict is None:
+                x_dict, edge_attr_dict = self.gnn(
+                    x_dict, data.edge_index_dict, edge_attr_dict, simp_edge_batch_dict
+                )
+            else:
+                x_dict, edge_attr_dict = self.gnn(
+                    x_dict, data.edge_index_dict, edge_attr_dict, simp_edge_batch_dict, edge_cat_dict
+                )
             x = x_dict['node']
             edge_attr = edge_attr_dict['node', 'to', 'node']
 
@@ -400,7 +504,10 @@ class MultiMPNN(torch.nn.Module):
                 edge_attr = edge_attr + self.edge_direction_encoder(data.edge_direction)
 
             # Message Passing Layers
-            x, edge_attr = self.gnn(x, data.edge_index, edge_attr, simp_edge_batch)
+            if getattr(self.args, 'aml_conditioned_edge_agg', False):
+                x, edge_attr = self.gnn(x, data.edge_index, edge_attr, simp_edge_batch, data.edge_cat)
+            else:
+                x, edge_attr = self.gnn(x, data.edge_index, edge_attr, simp_edge_batch)
 
             # Prediction Heads
             if self.args.task == 'edge_class':
@@ -461,6 +568,18 @@ class GnnHelper(torch.nn.Module):
         self.flatten_edges = args.flatten_edges
         self.edge_agg_type = args.edge_agg_type
         self.args = args
+        self.use_dual_endpoint_update = getattr(args, 'aml_dual_endpoint_update', False)
+        self.use_conditioned_edge_agg = getattr(args, 'aml_conditioned_edge_agg', False)
+
+        if self.use_dual_endpoint_update or self.use_conditioned_edge_agg:
+            if not self.flatten_edges or not self.edge_updates:
+                raise ValueError('AML structural modules require flattened edges and edge updates')
+            if self.edge_agg_type not in ('gin', 'sum'):
+                raise ValueError('AML structural modules support edge_agg_type gin or sum')
+        if self.use_conditioned_edge_agg:
+            cardinalities = getattr(args, 'edge_cat_cardinalities', [])
+            if not getattr(args, 'aml_use_categorical', False) or len(cardinalities) != 3:
+                raise ValueError('Conditioned aggregation requires the B2 categorical encoder and its three cardinalities')
 
     
         if args.node_agg_type == 'genagg':
@@ -491,12 +610,18 @@ class GnnHelper(torch.nn.Module):
                            divide_input=False)
                 
             if self.edge_updates: self.emlps.append(nn.Sequential(
-                nn.Linear(3 * self.n_hidden, self.n_hidden),
+                nn.Linear((4 if self.use_dual_endpoint_update else 3) * self.n_hidden, self.n_hidden),
                 nn.ReLU(),
                 nn.Linear(self.n_hidden, self.n_hidden),
             ))
             if self.flatten_edges:
-                edge_agg = MultiEdgeAggModule(n_hidden, agg_type=args.edge_agg_type, index=index_)
+                edge_agg = MultiEdgeAggModule(
+                    n_hidden,
+                    agg_type=args.edge_agg_type,
+                    index=index_,
+                    conditioned_by_payment=self.use_conditioned_edge_agg,
+                    num_payment_formats=(args.edge_cat_cardinalities[2] if self.use_conditioned_edge_agg else None),
+                )
                 self.edge_aggrs.append(edge_agg)
             self.convs.append(conv)
             self.batch_norms.append(BatchNorm(n_hidden))
@@ -507,7 +632,7 @@ class GnnHelper(torch.nn.Module):
             self.edge_agg = MultiEdgeAggModule(n_hidden, agg_type=args.edge_agg_type, index=index_)
         
 
-    def forward(self, x, edge_index, edge_attr, simp_edge_batch=None):
+    def forward(self, x, edge_index, edge_attr, simp_edge_batch=None, edge_cat=None):
         times= None # TODO: Not implemented yet
 
         if self.edge_agg_type == 'adamm':
@@ -524,11 +649,23 @@ class GnnHelper(torch.nn.Module):
 
             for i in range(self.num_gnn_layers):
                 if self.flatten_edges:
-                    n_edge_index, n_edge_attr, inverse_indices  = self.edge_aggrs[i](edge_index, edge_attr, simp_edge_batch, times)
+                    if self.use_conditioned_edge_agg:
+                        n_edge_index, n_edge_attr, inverse_indices, remapped_edge_attr = self.edge_aggrs[i](
+                            edge_index, edge_attr, simp_edge_batch, times, edge_cat
+                        )
+                    else:
+                        n_edge_index, n_edge_attr, inverse_indices = self.edge_aggrs[i](
+                            edge_index, edge_attr, simp_edge_batch, times
+                        )
                     x = (x + F.relu(self.batch_norms[i](self.convs[i](x, n_edge_index, n_edge_attr)))) / 2
                     if self.edge_updates: 
-                        remapped_edge_attr = torch.index_select(n_edge_attr, 0, inverse_indices) # artificall node attributes 
-                        edge_attr = edge_attr + self.emlps[i](torch.cat([x[src], remapped_edge_attr, edge_attr], dim=-1)) / 2
+                        if not self.use_conditioned_edge_agg:
+                            remapped_edge_attr = torch.index_select(n_edge_attr, 0, inverse_indices)
+                        update_inputs = [x[src]]
+                        if self.use_dual_endpoint_update:
+                            update_inputs.append(x[dst])
+                        update_inputs.extend([remapped_edge_attr, edge_attr])
+                        edge_attr = edge_attr + self.emlps[i](torch.cat(update_inputs, dim=-1)) / 2
                 else:
                     x = (x + F.relu(self.batch_norms[i](self.convs[i](x, edge_index, edge_attr)))) / 2
                     if self.edge_updates: 

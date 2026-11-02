@@ -43,6 +43,8 @@ def create_parser():
     parser.add_argument("--aml_history_gaps", action='store_true', help="Include pair and sender time-gap features in the AML history branch")
     parser.add_argument("--aml_history_window_minutes", default=1440, type=int, help="Window size for AML sender in/out history counts")
     parser.add_argument("--aml_history_cache_dir", default="cache/aml_history", type=str, help="Cache directory for computed AML history features")
+    parser.add_argument("--aml_dual_endpoint_update", action='store_true', help="Use both sender and receiver states in flattened-edge updates")
+    parser.add_argument("--aml_conditioned_edge_agg", action='store_true', help="Select payment-format group contexts per transaction within each account pair")
 
     #Model parameters
     parser.add_argument("--batch_size", default=8192, type=int, help="Select the batch size for GNN training")
@@ -63,6 +65,43 @@ def create_parser():
     parser.add_argument("--inference", action='store_true', help="Load a trained model and only do AML inference with it. args.unique name needs to point to the trained model.")
 
     return parser
+
+
+def validate_aml_architecture_args(args):
+    dual = getattr(args, 'aml_dual_endpoint_update', False)
+    conditioned = getattr(args, 'aml_conditioned_edge_agg', False)
+    if not (dual or conditioned):
+        return
+    if args.task != 'edge_class' or args.data not in ('Small_HI', 'Small_LI', 'Medium_HI', 'Medium_LI'):
+        raise ValueError('AML architecture switches require an IBM AML edge_class task')
+    if not args.flatten_edges or not args.emlps:
+        raise ValueError('AML architecture switches require --flatten_edges and --emlps')
+    if args.edge_agg_type not in ('gin', 'sum'):
+        raise ValueError('AML architecture switches currently support --edge_agg_type gin or sum')
+    categorical = getattr(args, 'aml_categorical_features', False) or getattr(args, 'aml_enhanced_features', False)
+    if conditioned and not categorical:
+        raise ValueError('--aml_conditioned_edge_agg requires --aml_categorical_features')
+
+
+def get_aml_architecture_config(args):
+    conditioned = bool(getattr(args, 'aml_conditioned_edge_agg', False))
+    return {
+        'dual_endpoint_update': bool(getattr(args, 'aml_dual_endpoint_update', False)),
+        'conditioned_edge_agg': conditioned,
+        'conditioned_edge_agg_version': 2 if conditioned else 0,
+    }
+
+
+def validate_aml_architecture_checkpoint(checkpoint, args):
+    current = get_aml_architecture_config(args)
+    saved = checkpoint.get('aml_architecture_config')
+    if saved is None:
+        if current['dual_endpoint_update'] or current['conditioned_edge_agg']:
+            raise ValueError('Checkpoint has no AML architecture metadata; use a checkpoint saved with these structural switches')
+        return  # Original B2 checkpoints predate the structural ablations.
+    if saved != current:
+        raise ValueError(f'Checkpoint AML architecture {saved} does not match current config {current}')
+
 
 def set_seed(seed: int = 0) -> None:
     np.random.seed(seed)
